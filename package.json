@@ -1,0 +1,36 @@
+{
+  "name": "ws-share",
+  "version": "0.0.1",
+  "description": "sharing of websockets between different modules or components for node, react or vanilla js",
+  "main": "WS.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RIAEvangelist/ws-share.git"
+  },
+  "keywords": [
+    "react",
+    "websocket",
+    "socket",
+    "share",
+    "ws",
+    "list",
+    "common"
+  ],
+  "author": "Brandon Nozaki Miller",
+  "license": "DBAD",
+  "bugs": {
+    "url": "https://github.com/RIAEvangelist/ws-share/issues"
+  },
+  "homepage": "https://github.com/RIAEvangelist/ws-share#readme",
+  "dependencies": {
+    "object-assign": "^4.0.1",
+    "object.observe": "^0.2.4",
+    "webpack": "^1.12.2"
+  },
+  "devDependencies": {
+    "webpack-dev-server": "^1.12.0"
+  }
+}
