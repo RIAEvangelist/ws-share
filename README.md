@@ -9,7 +9,7 @@ ws-share is designed to feel like you are naturally working with a standard WebS
 ## Tips
 You should check ws.readyState upon creation.  
 
-*** Why? ***  
+***Why?***  
 
 If the websocket was already opened  `ws.on('open',callback)` wont be called. So checking the ready state will allow you to perform any initialization needed in your component, action or store.
 
@@ -58,7 +58,7 @@ This follows the [standard WebSocket interface](https://developer.mozilla.org/en
 
 
 ## bind events on a shared WebSocket
-This follows the [standard WebSocket interface](https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API/Writing_WebSocket_client_applications) and also extends that interface with ` .on ` and ` .off ` as shortcuts for ` .addEventListener ` and ` .removeEventListener ` as on/off is commonly used in node applications and may be more intuitive for some developers.  All standard events are supported. *** Remember the scope of your callback is the shared websocket! if you want to use the react modules scope use *** ` .bind(this) ` *** on the callback ***
+This follows the [standard WebSocket interface](https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API/Writing_WebSocket_client_applications) and also extends that interface with ` .on ` and ` .off ` as shortcuts for ` .addEventListener ` and ` .removeEventListener ` as on/off is commonly used in node applications and may be more intuitive for some developers.  All standard events are supported. ***Remember the scope of your callback is the shared websocket! if you want to use the react modules scope use*** ` .bind(this) ` ***on the callback***
 
 ```javascript  
 
