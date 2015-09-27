@@ -1,6 +1,6 @@
 {
   "name": "ws-share",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "sharing websockets between different modules or components for react, flux, reflux, webpack or browserify",
   "main": "WS.js",
   "scripts": {
@@ -10,6 +10,9 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/RIAEvangelist/ws-share.git"
+  },
+  "engines": {
+    "node": ">=0.10.0"
   },
   "keywords": [
     "react",
