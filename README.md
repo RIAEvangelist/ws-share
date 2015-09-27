@@ -21,9 +21,14 @@ If the websocket was already opened  `ws.on('open',callback)` wont be called. So
 |addEventListener   |func   |false  |bind event listener to shared websocket|
 |removeEventListener|func   |false  |UNbind event listener to shared websocket|
 |send               |func   |false  |Send data to server|
-|readyState         |number |false  |the readyState of the shared websocket|
-|shouldRetry        |bool   |true   |should the ws try to reconnect on close or err? default is false.|
+|toObject           |func   |false  |returns an object representation of an instantiated version of this class|
 
+
+## Contributing
+
+1. Pull or Fork code.
+2. from the cloned directory run ` npm install ` (this will install required dependancies, depending on your system may require)
+3. be awesome!
 
 ## Example React echo components and app
 This very basic react.js example app has two components share the same websocket. Neither is aware they are sharing though. The Input component sends info upto the server while the Output listens for messages from the server. The [websocket.org](https://websocket.org/) server here just echo's all information back for demo purposes.
@@ -209,3 +214,7 @@ This follows the [standard WebSocket interface](https://developer.mozilla.org/en
 
 
 ```
+
+---
+
+This work is licenced via the [DBAD Public Licence](http://www.dbad-license.org/). It is a derivative work from Dominos API.
