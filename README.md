@@ -41,7 +41,7 @@ This very basic react.js example app has two components share the same websocket
 4. type some stuff and watch both components use the same websocket
 
 
-## Creating or use existing shared WebSocket
+## Create or use existing shared WebSocket
 This follows the [standard WebSocket interface](https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API/Writing_WebSocket_client_applications).  
 
 ```javascript  
@@ -64,7 +64,7 @@ This follows the [standard WebSocket interface](https://developer.mozilla.org/en
 ```
 
 
-## bind events on a shared WebSocket
+## Bind Events on a Shared WebSocket
 This follows the [standard WebSocket interface](https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API/Writing_WebSocket_client_applications) and also extends that interface with ` .on ` and ` .off ` as shortcuts for ` .addEventListener ` and ` .removeEventListener ` as on/off is commonly used in node applications and may be more intuitive for some developers.  All standard events are supported. ***Remember the scope of your callback is the shared websocket! if you want to use the react modules scope use*** ` .bind(this) ` ***on the callback***
 
 ```javascript  
@@ -104,7 +104,8 @@ This follows the [standard WebSocket interface](https://developer.mozilla.org/en
 
 ```
 
-## Basic example :
+## Basic Example :
+You will notice this looks just like a standard websocket creation, but behind the scenes it stores a refrence to share with any other component, store, or action which may also need access to this same websocket.  
 
 ```javascript  
 
@@ -121,6 +122,7 @@ This follows the [standard WebSocket interface](https://developer.mozilla.org/en
 ```
 
 ## Basic React Send Example :
+You will notice this looks just like a standard websocket creation, but behind the scenes it stores a refrence to share with any other component, store, or action which may also need access to this same websocket. For example, the next example, Output would share this same ws without needing a different format.
 
 ```javascript  
 
@@ -160,6 +162,7 @@ This follows the [standard WebSocket interface](https://developer.mozilla.org/en
 ```
 
 ## Basic React Listen for Message Example :
+You will notice this looks just like a standard websocket creation, but behind the scenes it stores a refrence to share with any other component, store, or action which may also need access to this same websocket. For example, the previous example, Input would share this same ws without needing a different format.
 
 ```javascript  
 
