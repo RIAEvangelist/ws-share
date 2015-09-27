@@ -145,7 +145,7 @@ This follows the [standard WebSocket interface](https://developer.mozilla.org/en
 
 ```
 
-## Basic React Send Example :
+## Basic React Listen for Message Example :
 
 ```javascript  
 
