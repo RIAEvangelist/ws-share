@@ -1,5 +1,13 @@
 # ws-share
-A module allowing sharing of websockets between different actions, stores, and/or components with react, webpack or browserify
+A module allowing sharing of websockets between different actions, stores, and/or components with react, webpack or browserify. ***This module is brand new, don't hold its lack of stats and install against it, give it a shot!***
+
+npm ws-share info :  [See npm trends and stats for ws-share](http://npm-stat.com/charts.html?package=ws-share&author=&from=&to=)  
+![ws-share npm version](https://img.shields.io/npm/v/ws-share.svg) ![supported node version for pizzapi](https://img.shields.io/node/v/pizzapi.svg) ![total npm downloads for pizzapi](https://img.shields.io/npm/dt/ws-share.svg) ![monthly npm downloads for pizzapi](https://img.shields.io/npm/dm/ws-share.svg) ![npm licence for pizzapi](https://img.shields.io/npm/l/ws-share.svg)
+
+[![RIAEvangelist](https://avatars3.githubusercontent.com/u/369041?v=3&s=100)](https://github.com/RIAEvangelist)
+
+GitHub info :  
+[![ws-share GitHub Release](https://img.shields.io/github/release/RIAEvangelist/ws-share.svg) ![GitHub license ws-share license](https://img.shields.io/github/license/RIAEvangelist/ws-share.svg) ![open issues for ws-share on GitHub](https://img.shields.io/github/issues/RIAEvangelist/ws-share.svg)](http://riaevangelist.github.io/ws-share/)
 
 ## What does ws-share do?
 ws-share managaes a list of open websockets and protocols allowing websockets to be easily shared between multiple common js modules. Each module can create a new WS instance for a given uri and protocol. However, if a socket with that uri & protocol list has already been opened, WS will refrence the open socket instead of creating a new socket for the same uri and protocol list.
