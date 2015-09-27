@@ -81,6 +81,13 @@ This follows the [standard WebSocket interface](https://developer.mozilla.org/en
     )
 
     ws.on(
+        'error',
+        function(e){
+            console.log('OMG there\'s been an error!',e);
+        }
+    )
+
+    ws.on(
         'message',
         function(e){
             console.log('got message on shared ws!',e.data);
