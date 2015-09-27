@@ -2,27 +2,11 @@
 //this is especially hand for webpack and react
 require('object.observe');
 require('object-assign');
-var events=require('event-pubsub');
 
 var wsList={};
 
-function wsOpened(e){
-    //events.trigger();
-    console.warn('WS OPENED!!!');
-}
-
 function wsClosed(e){
-    //events.trigger();
     console.warn('WS CLOSED!!!');
-}
-
-function wsMessage(e){
-    //events.trigger();
-    console.log('ws got message : '+e.data);
-}
-
-function readyStateChanged(){
-
 }
 
 function WS(uri,protocols){
@@ -30,37 +14,25 @@ function WS(uri,protocols){
         throw('WS requires a uri to initialize');
     }
     if(!wsList[uri]){
-        var newWS=new WebSocket(uri,protocols||null)//"wss://dev1.2-sight.com:32802"
-
-        newWS.addEventListener(
-            'open',
-            wsOpened
-        );
+        var newWS=null;
+        if(protocols){
+            newWS=new WebSocket(uri,protocols);
+        }else{
+            newWS=new WebSocket(uri);
+        }
 
         newWS.addEventListener(
             'close',
             wsClosed
         );
 
-        newWS.addEventListener(
-            'message',
-            wsMessage
-        );
-
-        Object.observe(
-            newWS.readyState,
-            readyStateChanged
-        );
-
         newWS._RETRY=true;
         newWS._RETRY_EVERY=true;
 
-        wsList.push(
-            newWS
-        );
+        wsList[uri]=newWS;
     }
     var ws=wsList[uri];
-
+    
     Object.defineProperties(
         this,
         {
@@ -72,12 +44,12 @@ function WS(uri,protocols){
             on:{
                 writable:false,
                 enumerable:true,
-                value:events.on.bind(events)
+                value:ws.addEventListener.bind(ws)
             },
             off:{
                 writable:false,
                 enumerable:true,
-                value:events.off.bind(events)
+                value:ws.removeEventListener.bind(ws)
             },
             send:{
                 writable:false,
@@ -135,4 +107,4 @@ function WS(uri,protocols){
 
 }
 
-module.exports.WS;
+module.exports=WS;
