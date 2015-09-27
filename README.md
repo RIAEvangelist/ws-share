@@ -32,7 +32,7 @@ If the websocket was already opened  `ws.on('open',callback)` wont be called. So
 2. from the cloned directory run ` npm install ` (this will install required dependancies, depending on your system may require)
 3. be awesome!
 
-## Example React echo components and app
+## Running Example React Shared WebSocket Echo App
 This very basic react.js example app has two components share the same websocket. Neither is aware they are sharing though. The Input component sends info upto the server while the Output listens for messages from the server. The [websocket.org](https://websocket.org/) server here just echo's all information back for demo purposes.
 
 1. ` npm install `
