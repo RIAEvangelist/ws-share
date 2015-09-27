@@ -1,6 +1,6 @@
 {
   "name": "ws-share",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "sharing websockets between different modules or components for react, flux, reflux, webpack or browserify",
   "main": "WS.js",
   "scripts": {
@@ -16,14 +16,25 @@
   },
   "keywords": [
     "react",
+    "react.js",
+    "reactjs",
     "websocket",
+    "websockets",
+    "web",
     "socket",
+    "sockets",
     "share",
     "ws",
     "list",
     "common",
     "flux",
-    "reflux"
+    "reflux",
+    "component",
+    "components",
+    "store",
+    "stores",
+    "action",
+    "actions"
   ],
   "author": "Brandon Nozaki Miller",
   "license": "DBAD",
