@@ -139,7 +139,7 @@ You will notice this looks just like a standard websocket creation, but behind t
 ```javascript  
 
     var React=require('react');
-    var WS=require('ws-share.js');
+    var WS=require('ws-share');
 
     var Input=React.createClass(
         {
@@ -179,7 +179,7 @@ You will notice this looks just like a standard websocket creation, but behind t
 ```javascript  
 
     var React=require('react');
-    var WS=require('ws-share.js');
+    var WS=require('ws-share');
 
     var Output=React.createClass(
         {
