@@ -22,6 +22,7 @@ If the websocket was already opened  `ws.on('open',callback)` wont be called. So
 |addEventListener   |func   |false  |bind event listener to shared websocket|
 |removeEventListener|func   |false  |UNbind event listener to shared websocket|
 |send               |func   |false  |Send data to server|
+|readyState         |number |not by user|The current readyState of the shared websocket|
 |toObject           |func   |false  |returns an object representation of an instantiated version of this class|
 
 
