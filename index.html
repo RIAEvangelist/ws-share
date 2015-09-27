@@ -1,0 +1,342 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Ws-share by RIAEvangelist</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/github-light.css">
+    <script src="javascripts/scale.fix.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1 class="header">Ws-share</h1>
+        <p class="header">A module allowing sharing of websockets between different actions, stores, and/or components with react, webpack or browserify</p>
+
+        <ul>
+          <li class="download"><a class="buttons" href="https://github.com/RIAEvangelist/ws-share/zipball/master">Download ZIP</a></li>
+          <li class="download"><a class="buttons" href="https://github.com/RIAEvangelist/ws-share/tarball/master">Download TAR</a></li>
+          <li><a class="buttons github" href="https://github.com/RIAEvangelist/ws-share">View On GitHub</a></li>
+        </ul>
+
+        <p class="header">This project is maintained by <a class="header name" href="https://github.com/RIAEvangelist">RIAEvangelist</a></p>
+
+
+      </header>
+      <section>
+        <h1>
+<a id="ws-share" class="anchor" href="#ws-share" aria-hidden="true"><span class="octicon octicon-link"></span></a>ws-share</h1>
+
+<p>A module allowing sharing of websockets between different actions, stores, and/or components with react, webpack or browserify. <strong><em>This module is brand new, don't hold its lack of stats and install against it, give it a shot!</em></strong></p>
+
+<p>npm ws-share info :  <a href="http://npm-stat.com/charts.html?package=ws-share&amp;author=&amp;from=&amp;to=">See npm trends and stats for ws-share</a><br>
+<img src="https://img.shields.io/npm/v/ws-share.svg" alt="ws-share npm version"> <img src="https://img.shields.io/node/v/ws-share.svg" alt="supported node version for ws-share"> <img src="https://img.shields.io/npm/dt/ws-share.svg" alt="total npm downloads for ws-share"> <img src="https://img.shields.io/npm/dm/ws-share.svg" alt="monthly npm downloads for ws-share"> <img src="https://img.shields.io/npm/l/ws-share.svg" alt="npm licence for ws-share"></p>
+
+<p><code>npm install --save ws-share</code>  </p>
+
+<p><a href="https://github.com/RIAEvangelist"><img src="https://avatars3.githubusercontent.com/u/369041?v=3&amp;s=100" alt="RIAEvangelist"></a></p>
+
+<p>GitHub info :<br>
+<a href="http://riaevangelist.github.io/ws-share/"><img src="https://img.shields.io/github/release/RIAEvangelist/ws-share.svg" alt="ws-share GitHub Release"> <img src="https://img.shields.io/github/license/RIAEvangelist/ws-share.svg" alt="GitHub license ws-share license"> <img src="https://img.shields.io/github/issues/RIAEvangelist/ws-share.svg" alt="open issues for ws-share on GitHub"></a></p>
+
+<h2>
+<a id="what-does-ws-share-do" class="anchor" href="#what-does-ws-share-do" aria-hidden="true"><span class="octicon octicon-link"></span></a>What does ws-share do?</h2>
+
+<p>ws-share managaes a list of open websockets and protocols allowing websockets to be easily shared between multiple common js modules. Each module can create a new WS instance for a given uri and protocol. However, if a socket with that uri &amp; protocol list has already been opened, WS will refrence the open socket instead of creating a new socket for the same uri and protocol list.</p>
+
+<p>ws-share is designed to feel like you are naturally working with a standard WebSocket.  </p>
+
+<h2>
+<a id="tips" class="anchor" href="#tips" aria-hidden="true"><span class="octicon octicon-link"></span></a>Tips</h2>
+
+<p>You should check ws.readyState upon creation.  </p>
+
+<p><strong><em>Why?</em></strong>  </p>
+
+<p>If the websocket was already opened  <code>ws.on('open',callback)</code> wont be called. So checking the ready state will allow you to perform any initialization needed in your component, action or store.</p>
+
+<table>
+<thead>
+<tr>
+<th>method or value</th>
+<th>type</th>
+<th>mutable</th>
+<th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>uri</td>
+<td>string</td>
+<td>false</td>
+<td>the uri of the shared ws</td>
+</tr>
+<tr>
+<td>protocols</td>
+<td>array/string</td>
+<td>false</td>
+<td>the protocols of the shared ws</td>
+</tr>
+<tr>
+<td>on</td>
+<td>func</td>
+<td>false</td>
+<td>bind event listener to shared websocket</td>
+</tr>
+<tr>
+<td>off</td>
+<td>func</td>
+<td>false</td>
+<td>UNbind event listener to shared websocket</td>
+</tr>
+<tr>
+<td>addEventListener</td>
+<td>func</td>
+<td>false</td>
+<td>bind event listener to shared websocket</td>
+</tr>
+<tr>
+<td>removeEventListener</td>
+<td>func</td>
+<td>false</td>
+<td>UNbind event listener to shared websocket</td>
+</tr>
+<tr>
+<td>send</td>
+<td>func</td>
+<td>false</td>
+<td>Send data to server</td>
+</tr>
+<tr>
+<td>readyState</td>
+<td>number</td>
+<td>not by user</td>
+<td>The current readyState of the shared websocket</td>
+</tr>
+<tr>
+<td>toObject</td>
+<td>func</td>
+<td>false</td>
+<td>returns an object representation of an instantiated version of this class</td>
+</tr>
+</tbody>
+</table>
+
+<h2>
+<a id="contributing" class="anchor" href="#contributing" aria-hidden="true"><span class="octicon octicon-link"></span></a>Contributing</h2>
+
+<ol>
+<li>Pull or Fork code.</li>
+<li>from the cloned directory run <code>npm install</code> (this will install required dependancies, depending on your system may require)</li>
+<li>be awesome!</li>
+</ol>
+
+<h2>
+<a id="running-example-react-shared-websocket-echo-app" class="anchor" href="#running-example-react-shared-websocket-echo-app" aria-hidden="true"><span class="octicon octicon-link"></span></a>Running Example React Shared WebSocket Echo App</h2>
+
+<p>This very basic react.js example app has two components share the same websocket. Neither is aware they are sharing though. The Input component sends info upto the server while the Output listens for messages from the server. The <a href="https://websocket.org/">websocket.org</a> server here just echo's all information back for demo purposes.</p>
+
+<ol>
+<li><code>npm install</code></li>
+<li><code>npm start echo</code></li>
+<li>goto <a href="http://localhost:8080">localhost:8080</a>
+</li>
+<li>type some stuff and watch both components use the same websocket</li>
+</ol>
+
+<h2>
+<a id="create-or-use-existing-shared-websocket" class="anchor" href="#create-or-use-existing-shared-websocket" aria-hidden="true"><span class="octicon octicon-link"></span></a>Create or Use Existing Shared WebSocket</h2>
+
+<p>This follows the <a href="https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API/Writing_WebSocket_client_applications">standard WebSocket interface</a>.  </p>
+
+<div class="highlight highlight-source-js"><pre>
+    <span class="pl-k">var</span> <span class="pl-c1">WS</span><span class="pl-k">=</span><span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>ws-share<span class="pl-pds">'</span></span>);
+
+    <span class="pl-k">var</span> basicWS<span class="pl-k">=</span><span class="pl-k">new</span> <span class="pl-en">WS</span>(<span class="pl-s"><span class="pl-pds">'</span>wss://echo.websocket.org/?encoding=text<span class="pl-pds">'</span></span>);
+
+    <span class="pl-k">var</span> wsWithOneProtocol<span class="pl-k">=</span><span class="pl-k">new</span> <span class="pl-en">WS</span>(<span class="pl-s"><span class="pl-pds">'</span>wss://echo.websocket.org/?encoding=text<span class="pl-pds">'</span></span>,<span class="pl-s"><span class="pl-pds">'</span>stream<span class="pl-pds">'</span></span>);
+
+    <span class="pl-k">var</span> wsWithManyProtocols<span class="pl-k">=</span><span class="pl-k">new</span> <span class="pl-en">WS</span>(
+        <span class="pl-s"><span class="pl-pds">'</span>wss://echo.websocket.org/?encoding=text<span class="pl-pds">'</span></span>,
+        [
+            <span class="pl-s"><span class="pl-pds">'</span>stream<span class="pl-pds">'</span></span>,
+            <span class="pl-s"><span class="pl-pds">'</span>chat<span class="pl-pds">'</span></span>,
+            <span class="pl-s"><span class="pl-pds">'</span>whatever<span class="pl-pds">'</span></span>
+        ]
+    );
+</pre></div>
+
+<h2>
+<a id="bind-events-on-a-shared-websocket" class="anchor" href="#bind-events-on-a-shared-websocket" aria-hidden="true"><span class="octicon octicon-link"></span></a>Bind Events on a Shared WebSocket</h2>
+
+<p>This follows the <a href="https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API/Writing_WebSocket_client_applications">standard WebSocket interface</a> and also extends that interface with <code>.on</code> and <code>.off</code> as shortcuts for <code>.addEventListener</code> and <code>.removeEventListener</code> as on/off is commonly used in node applications and may be more intuitive for some developers.  All standard events are supported. <strong><em>Remember the scope of your callback is the shared websocket! if you want to use the react modules scope use</em></strong> <code>.bind(this)</code> <strong><em>on the callback</em></strong></p>
+
+<div class="highlight highlight-source-js"><pre>
+    <span class="pl-k">var</span> <span class="pl-c1">WS</span><span class="pl-k">=</span><span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>ws-share<span class="pl-pds">'</span></span>);
+
+    <span class="pl-k">var</span> ws<span class="pl-k">=</span><span class="pl-k">new</span> <span class="pl-en">WS</span>(<span class="pl-s"><span class="pl-pds">'</span>wss://echo.websocket.org/?encoding=text<span class="pl-pds">'</span></span>);
+
+    ws.on(
+        <span class="pl-s"><span class="pl-pds">'</span>open<span class="pl-pds">'</span></span>,
+        <span class="pl-k">function</span>(<span class="pl-smi">e</span>){
+            <span class="pl-en">console</span>.<span class="pl-c1">log</span>(<span class="pl-s"><span class="pl-pds">'</span>shared websocket open!<span class="pl-pds">'</span></span>);
+        }
+    )
+
+    ws.on(
+        <span class="pl-s"><span class="pl-pds">'</span>close<span class="pl-pds">'</span></span>,
+        <span class="pl-k">function</span>(<span class="pl-smi">e</span>){
+            <span class="pl-en">console</span>.<span class="pl-c1">log</span>(<span class="pl-s"><span class="pl-pds">'</span>shared websocket closed!<span class="pl-pds">'</span></span>);
+        }
+    )
+
+    ws.on(
+        <span class="pl-s"><span class="pl-pds">'</span>error<span class="pl-pds">'</span></span>,
+        <span class="pl-k">function</span>(<span class="pl-smi">e</span>){
+            <span class="pl-en">console</span>.<span class="pl-c1">log</span>(<span class="pl-s"><span class="pl-pds">'</span>OMG there<span class="pl-cce">\'</span>s been an error!<span class="pl-pds">'</span></span>,e);
+        }
+    )
+
+    ws.on(
+        <span class="pl-s"><span class="pl-pds">'</span>message<span class="pl-pds">'</span></span>,
+        <span class="pl-k">function</span>(<span class="pl-smi">e</span>){
+            <span class="pl-en">console</span>.<span class="pl-c1">log</span>(<span class="pl-s"><span class="pl-pds">'</span>got message on shared ws!<span class="pl-pds">'</span></span>,e.<span class="pl-c1">data</span>);
+        }
+    )
+
+</pre></div>
+
+<h2>
+<a id="basic-example-" class="anchor" href="#basic-example-" aria-hidden="true"><span class="octicon octicon-link"></span></a>Basic Example :</h2>
+
+<p>You will notice this looks just like a standard websocket creation, but behind the scenes it stores a refrence to share with any other component, store, or action which may also need access to this same websocket.  </p>
+
+<div class="highlight highlight-source-js"><pre>
+    <span class="pl-k">var</span> <span class="pl-c1">WS</span><span class="pl-k">=</span><span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>ws-share<span class="pl-pds">'</span></span>);
+
+    <span class="pl-k">var</span> ws<span class="pl-k">=</span><span class="pl-k">new</span> <span class="pl-en">WS</span>(<span class="pl-s"><span class="pl-pds">'</span>wss://echo.websocket.org/?encoding=text<span class="pl-pds">'</span></span>);
+    ws.on(
+        <span class="pl-s"><span class="pl-pds">'</span>message<span class="pl-pds">'</span></span>,
+        <span class="pl-k">function</span>(<span class="pl-smi">e</span>){
+            <span class="pl-en">console</span>.<span class="pl-c1">log</span>(e.<span class="pl-c1">data</span>);
+        }
+    );
+</pre></div>
+
+<h2>
+<a id="basic-react-send-example-" class="anchor" href="#basic-react-send-example-" aria-hidden="true"><span class="octicon octicon-link"></span></a>Basic React Send Example :</h2>
+
+<p>You will notice this looks just like a standard websocket creation, but behind the scenes it stores a refrence to share with any other component, store, or action which may also need access to this same websocket. For example, the next example, Output would share this same ws without needing a different format.</p>
+
+<div class="highlight highlight-source-js"><pre>
+    <span class="pl-k">var</span> React<span class="pl-k">=</span><span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>react<span class="pl-pds">'</span></span>);
+    <span class="pl-k">var</span> <span class="pl-c1">WS</span><span class="pl-k">=</span><span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>ws-share.js<span class="pl-pds">'</span></span>);
+
+    <span class="pl-k">var</span> Input<span class="pl-k">=</span>React.createClass(
+        {
+            <span class="pl-en">componentWillMount</span><span class="pl-k">:</span><span class="pl-k">function</span>(){
+                <span class="pl-v">this</span>.ws<span class="pl-k">=</span><span class="pl-k">new</span> <span class="pl-en">WS</span>(<span class="pl-s"><span class="pl-pds">'</span>wss://echo.websocket.org/?encoding=text<span class="pl-pds">'</span></span>);
+            },
+            <span class="pl-en">componentWillUnmount</span><span class="pl-k">:</span><span class="pl-k">function</span>(){
+                <span class="pl-v">this</span>.ws<span class="pl-k">=</span><span class="pl-c1">null</span>;
+            },
+            <span class="pl-en">_change</span><span class="pl-k">:</span><span class="pl-k">function</span>(<span class="pl-smi">e</span>){
+                <span class="pl-k">if</span>(<span class="pl-v">this</span>.ws.<span class="pl-c1">readyState</span><span class="pl-k">!==</span><span class="pl-c1">1</span>){
+                    <span class="pl-en">console</span>.<span class="pl-c1">log</span>(<span class="pl-s"><span class="pl-pds">'</span>WS not yet connected or already disconnected. Can not send message.<span class="pl-pds">'</span></span>);
+                    <span class="pl-k">return</span>;
+                }
+                <span class="pl-v">this</span>.ws.<span class="pl-c1">send</span>(e.<span class="pl-c1">target</span>.<span class="pl-c1">value</span>);
+            },
+            <span class="pl-en">render</span><span class="pl-k">:</span><span class="pl-k">function</span>(){
+                <span class="pl-k">return</span> (
+                    <span class="pl-k">&lt;</span>div<span class="pl-k">&gt;</span>
+                        <span class="pl-k">&lt;</span>h3<span class="pl-k">&gt;</span>
+                            Send To Server
+                        <span class="pl-k">&lt;/</span>h3<span class="pl-k">&gt;</span>
+                        <span class="pl-k">&lt;</span>input <span class="pl-c1">onChange</span><span class="pl-k">=</span>{<span class="pl-v">this</span>._change} <span class="pl-k">/&gt;</span>
+                    <span class="pl-k">&lt;/</span>div<span class="pl-k">&gt;</span>
+                )
+            }
+        }
+    );
+
+    <span class="pl-c1">module</span>.exports<span class="pl-k">=</span>Input;
+</pre></div>
+
+<h2>
+<a id="basic-react-listen-for-message-example-" class="anchor" href="#basic-react-listen-for-message-example-" aria-hidden="true"><span class="octicon octicon-link"></span></a>Basic React Listen for Message Example :</h2>
+
+<p>You will notice this looks just like a standard websocket creation, but behind the scenes it stores a refrence to share with any other component, store, or action which may also need access to this same websocket. For example, the previous example, Input would share this same ws without needing a different format.</p>
+
+<div class="highlight highlight-source-js"><pre>
+    <span class="pl-k">var</span> React<span class="pl-k">=</span><span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>react<span class="pl-pds">'</span></span>);
+    <span class="pl-k">var</span> <span class="pl-c1">WS</span><span class="pl-k">=</span><span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>ws-share.js<span class="pl-pds">'</span></span>);
+
+    <span class="pl-k">var</span> Output<span class="pl-k">=</span>React.createClass(
+        {
+            <span class="pl-en">getInitialState</span><span class="pl-k">:</span><span class="pl-k">function</span>(){
+                <span class="pl-k">return</span> {
+                    message<span class="pl-k">:</span><span class="pl-s"><span class="pl-pds">'</span><span class="pl-pds">'</span></span>
+                }
+            },
+            <span class="pl-en">componentWillMount</span><span class="pl-k">:</span><span class="pl-k">function</span>(){
+                <span class="pl-v">this</span>.ws<span class="pl-k">=</span><span class="pl-k">new</span> <span class="pl-en">WS</span>(<span class="pl-s"><span class="pl-pds">'</span>wss://echo.websocket.org/?encoding=text<span class="pl-pds">'</span></span>);
+                <span class="pl-v">this</span>.ws.on(
+                    <span class="pl-s"><span class="pl-pds">'</span>message<span class="pl-pds">'</span></span>,
+                    <span class="pl-k">function</span>(<span class="pl-smi">e</span>){
+                        <span class="pl-v">this</span>.setState(
+                            {
+                                message<span class="pl-k">:</span>e.<span class="pl-c1">data</span>
+                            }
+                        )
+                    <span class="pl-c">//We want to use this.state,</span>
+                    <span class="pl-c">//so we have to bind the react component</span>
+                    <span class="pl-c">//scope to the callback</span>
+                    }.bind(<span class="pl-v">this</span>)
+                );
+            },
+            <span class="pl-en">componentWillUnmount</span><span class="pl-k">:</span><span class="pl-k">function</span>(){
+                <span class="pl-v">this</span>.ws<span class="pl-k">=</span><span class="pl-c1">null</span>;
+            },
+            <span class="pl-en">_change</span><span class="pl-k">:</span><span class="pl-k">function</span>(<span class="pl-smi">e</span>){
+                <span class="pl-k">if</span>(<span class="pl-v">this</span>.ws.<span class="pl-c1">readyState</span><span class="pl-k">!==</span><span class="pl-c1">1</span>){
+                    <span class="pl-en">console</span>.<span class="pl-c1">log</span>(<span class="pl-s"><span class="pl-pds">'</span>WS not yet connected or already disconnected. Can not send message.<span class="pl-pds">'</span></span>);
+                    <span class="pl-k">return</span>;
+                }
+                <span class="pl-v">this</span>.ws.<span class="pl-c1">send</span>(e.<span class="pl-c1">target</span>.<span class="pl-c1">value</span>);
+            },
+            <span class="pl-en">render</span><span class="pl-k">:</span><span class="pl-k">function</span>(){
+                <span class="pl-k">return</span> (
+                    <span class="pl-k">&lt;</span>div<span class="pl-k">&gt;</span>
+                        <span class="pl-k">&lt;</span>h3<span class="pl-k">&gt;</span>
+                            Got From Server
+                        <span class="pl-k">&lt;/</span>h3<span class="pl-k">&gt;</span>
+                        <span class="pl-k">&lt;</span>textarea value<span class="pl-k">=</span>{<span class="pl-v">this</span>.state.message} <span class="pl-k">/&gt;</span>
+                    <span class="pl-k">&lt;/</span>div<span class="pl-k">&gt;</span>
+                )
+            }
+        }
+    );
+
+    <span class="pl-c1">module</span>.exports<span class="pl-k">=</span>Output;
+
+</pre></div>
+
+<hr>
+
+<p>This work is licenced via the <a href="http://www.dbad-license.org/">DBAD Public Licence</a>.</p>
+      </section>
+      <footer>
+        <p><small>Hosted on <a href="https://pages.github.com">GitHub Pages</a> using the Dinky theme</small></p>
+      </footer>
+    </div>
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+		
+  </body>
+</html>
