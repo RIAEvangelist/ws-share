@@ -1,6 +1,6 @@
 {
   "name": "ws-share",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "sharing websockets between different modules or components for react, flux, reflux, webpack or browserify",
   "main": "WS.js",
   "scripts": {
