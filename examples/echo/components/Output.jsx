@@ -26,6 +26,7 @@ var Output=React.createClass(
             this.ws=null;
         },
         _change:function(e){
+            console.log(this.ws);
             if(this.ws.readyState!==1){
                 console.log('WS not yet connected or already disconnected. Can not send message.');
                 return;

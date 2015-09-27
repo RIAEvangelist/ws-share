@@ -6,7 +6,7 @@ require('object-assign');
 var wsList={};
 
 function wsClosed(e){
-    console.warn('WS CLOSED!!!');
+    delete wsList[this._WS_KEY];
 }
 
 function WS(uri,protocols){
@@ -21,15 +21,14 @@ function WS(uri,protocols){
             newWS=new WebSocket(uri);
         }
 
+        newWS._WS_KEY=uri+protocols;
+
         newWS.addEventListener(
             'close',
             wsClosed
         );
 
-        newWS._RETRY=false;
-        newWS._RETRY_EVERY=1000;
-
-        wsList[uri]=newWS;
+        wsList[uri+protocols]=newWS;
     }
     var ws=wsList[uri+protocols];
 
@@ -75,35 +74,12 @@ function WS(uri,protocols){
                 get:getReadyState,
                 set:getReadyState
             },
-            shouldRetry:{
-                get:getShouldRetry,
-                set:setShouldRetry
-            },
-            retryEvery:{
-                get:getRetryEvery,
-                set:setRetryEvery
-            },
             toObject:{
                 get:getAsObject,
                 set:getAsObject
             }
         }
     );
-
-    function getShouldRetry(){
-        return ws._RETRY;
-    }
-    function setShouldRetry(value){
-        return ws._RETRY=value;
-    }
-
-
-    function getRetryEvery(){
-        return ws._RETRY_EVERY;
-    }
-    function setRetryEvery(ms){
-        return ws._RETRY_EVERY=ms;
-    }
 
     function getReadyState(){
         return ws.readyState;

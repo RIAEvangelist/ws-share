@@ -4,9 +4,7 @@ A module allowing sharing of websockets between different actions, stores, and/o
 ## What does ws-share do?
 ws-share managaes a list of open websockets and protocols allowing websockets to be easily shared between multiple common js modules. Each module can create a new WS instance for a given uri and protocol. However, if a socket with that uri & protocol list has already been opened, WS will refrence the open socket instead of creating a new socket for the same uri and protocol list.
 
-ws-share is designed to feel like you are naturally working with a standard WebSocket.
-
-It also allows you to specify if a socket should try reconnecting to the server after it closes or errors out. You can specify ` .shouldRetry ` which is defaultyed to false and ` .retryEvery ` `X`ms. The default retry interval is 1000ms
+ws-share is designed to feel like you are naturally working with a standard WebSocket.  
 
 ## Tips
 You should check ws.readyState upon creation. Why?  
@@ -21,10 +19,8 @@ If the websocket was already opened  `ws.on('open',callback)` wont be called unl
 |addEventListener   |func   |false  |bind event listener to shared websocket|
 |removeEventListener|func   |false  |UNbind event listener to shared websocket|
 |send               |func   |false  |Send data to server|
-|readyState         |number |false  ||
-|shouldRetry        |bool   |true   ||
-|retryEvery         |number |true   ||
-|toObject           |func   |false  ||
+|readyState         |number |false  |the readyState of the shared websocket|
+|shouldRetry        |bool   |true   |should the ws try to reconnect on close or err? default is false.|
 
 
 ## Example React echo components and app
@@ -57,8 +53,6 @@ This follows the [standard WebSocket interface](https://developer.mozilla.org/en
     );
 
 ```
-
-
 
 
 ## bind events on a shared WebSocket

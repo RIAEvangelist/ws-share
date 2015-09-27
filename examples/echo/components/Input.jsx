@@ -5,6 +5,12 @@ var Input=React.createClass(
     {
         componentWillMount:function(){
             this.ws=new WS('wss://echo.websocket.org/?encoding=text');
+            this.ws.on(
+                'open',
+                function(e){
+                    console.log(this);
+                }
+            );
         },
         componentWillUnmount:function(){
             this.ws=null;
