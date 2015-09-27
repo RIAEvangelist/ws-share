@@ -41,7 +41,7 @@ This very basic react.js example app has two components share the same websocket
 4. type some stuff and watch both components use the same websocket
 
 
-## Create or use existing shared WebSocket
+## Create or Use Existing Shared WebSocket
 This follows the [standard WebSocket interface](https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API/Writing_WebSocket_client_applications).  
 
 ```javascript  
