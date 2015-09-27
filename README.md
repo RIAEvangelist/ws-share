@@ -222,4 +222,4 @@ You will notice this looks just like a standard websocket creation, but behind t
 
 ---
 
-This work is licenced via the [DBAD Public Licence](http://www.dbad-license.org/). It is a derivative work from Dominos API.
+This work is licenced via the [DBAD Public Licence](http://www.dbad-license.org/).
