@@ -14,6 +14,7 @@ You should check ws.readyState upon creation.
 If the websocket was already opened  `ws.on('open',callback)` wont be called. So checking the ready state will allow you to perform any initialization needed in your component, action or store.
 
 |method or value    |type   |mutable|description|
+|-------------------|-------|-------|-----------|
 |uri                |string |false  |the uri of the shared ws|
 |protocols          |array/string|false  |the protocols of the shared ws|
 |on                 |func   |false  |bind event listener to shared websocket|
