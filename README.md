@@ -1,5 +1,5 @@
 # ws-share
-A module allowing sharing of websockets between different actions, stores, and/or components with react, webpack or browserify. ***This module is brand new, don't hold its lack of stats and install against it, give it a shot!***
+A module allowing sharing of websockets between different functions, modules, scripts, actions, stores, and/or components with vanilla js (plain js), react, webpack or browserify. ***This module is brand new, don't hold its lack of stats and install against it, give it a shot!***
 
 npm ws-share info :  [See npm trends and stats for ws-share](http://npm-stat.com/charts.html?package=ws-share&author=&from=&to=)  
 ![ws-share npm version](https://img.shields.io/npm/v/ws-share.svg) ![supported node version for ws-share](https://img.shields.io/node/v/ws-share.svg) ![total npm downloads for ws-share](https://img.shields.io/npm/dt/ws-share.svg) ![monthly npm downloads for ws-share](https://img.shields.io/npm/dm/ws-share.svg) ![npm licence for ws-share](https://img.shields.io/npm/l/ws-share.svg)
@@ -14,11 +14,15 @@ GitHub info :
 [ws-share site](http://riaevangelist.github.io/ws-share/)
 
 ## What does ws-share do?
-ws-share managaes a list of open websockets and protocols allowing websockets to be easily shared between multiple common js modules. Each module can create a new WS instance for a given uri and protocol. However, if a socket with that uri & protocol list has already been opened, WS will refrence the open socket instead of creating a new socket for the same uri and protocol list.
+ws-share managaes a list of open websockets and protocols allowing websockets to be easily shared between multiple vanilla js (plain js), or common js modules. Each module can create a new WS instance for a given uri and protocol. However, if a socket with that uri & protocol list has already been opened, WS will refrence the open socket instead of creating a new socket for the same uri and protocol list.
 
-ws-share is designed to feel like you are naturally working with a standard WebSocket.  
+ws-share is designed to feel like you are naturally working with a standard WebSocket
 
 ## Tips
+For vanilla js (just plain old js) include the browser.js file
+
+    <script src='ws-share-vanilla.js' />
+
 You should check ws.readyState upon creation.  
 
 ***Why?***  
@@ -58,7 +62,11 @@ This follows the [standard WebSocket interface](https://developer.mozilla.org/en
 
 ```javascript  
 
+    //commonjs
     var WS=require('ws-share');
+    //or vanilla js
+    <script src='ws-share-vanilla.js' />
+
 
     var basicWS=new WS('wss://echo.websocket.org/?encoding=text');
 
@@ -81,7 +89,10 @@ This follows the [standard WebSocket interface](https://developer.mozilla.org/en
 
 ```javascript  
 
+    //commonjs
     var WS=require('ws-share');
+    //or vanilla js
+    <script src='ws-share-vanilla.js' />
 
     var ws=new WS('wss://echo.websocket.org/?encoding=text');
 
@@ -121,7 +132,10 @@ You will notice this looks just like a standard websocket creation, but behind t
 
 ```javascript  
 
+    //commonjs
     var WS=require('ws-share');
+    //or vanilla js
+    <script src='ws-share-vanilla.js' />
 
     var ws=new WS('wss://echo.websocket.org/?encoding=text');
     ws.on(
