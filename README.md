@@ -7,9 +7,11 @@ ws-share managaes a list of open websockets and protocols allowing websockets to
 ws-share is designed to feel like you are naturally working with a standard WebSocket.  
 
 ## Tips
-You should check ws.readyState upon creation. Why?  
+You should check ws.readyState upon creation.  
 
-If the websocket was already opened  `ws.on('open',callback)` wont be called unless the ws closes and reopens. So checking the ready state will allow you to perform any initialization needed in your component, action or store.
+*** Why? ***  
+
+If the websocket was already opened  `ws.on('open',callback)` wont be called. So checking the ready state will allow you to perform any initialization needed in your component, action or store.
 
 |method or value    |type   |mutable|description|
 |uri                |string |false  |the uri of the shared ws|
