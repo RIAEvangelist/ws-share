@@ -1,7 +1,7 @@
 {
   "name": "ws-share",
   "version": "0.0.1",
-  "description": "sharing of websockets between different modules or components for react, webpack or browserify",
+  "description": "sharing websockets between different modules or components for react, flux, reflux, webpack or browserify",
   "main": "WS.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -18,7 +18,9 @@
     "share",
     "ws",
     "list",
-    "common"
+    "common",
+    "flux",
+    "reflux"
   ],
   "author": "Brandon Nozaki Miller",
   "license": "DBAD",
