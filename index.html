@@ -1,39 +1,40 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
+
   <head>
-    <meta charset="utf-8">
+    <meta charset='utf-8'>
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <title>Ws-share by RIAEvangelist</title>
+    <meta name="description" content="Ws-share : A module allowing sharing of websockets between different actions, stores, and/or components with react, webpack or browserify">
 
-    <link rel="stylesheet" href="stylesheets/styles.css">
-    <link rel="stylesheet" href="stylesheets/github-light.css">
-    <script src="javascripts/scale.fix.js"></script>
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-    <!--[if lt IE 9]>
-    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>Ws-share</title>
   </head>
+
   <body>
-    <div class="wrapper">
-      <header>
-        <h1 class="header">Ws-share</h1>
-        <p class="header">A module allowing sharing of websockets between different actions, stores, and/or components with react, webpack or browserify</p>
 
-        <ul>
-          <li class="download"><a class="buttons" href="https://github.com/RIAEvangelist/ws-share/zipball/master">Download ZIP</a></li>
-          <li class="download"><a class="buttons" href="https://github.com/RIAEvangelist/ws-share/tarball/master">Download TAR</a></li>
-          <li><a class="buttons github" href="https://github.com/RIAEvangelist/ws-share">View On GitHub</a></li>
-        </ul>
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/RIAEvangelist/ws-share">View on GitHub</a>
 
-        <p class="header">This project is maintained by <a class="header name" href="https://github.com/RIAEvangelist">RIAEvangelist</a></p>
+          <h1 id="project_title">Ws-share</h1>
+          <h2 id="project_tagline">A module allowing sharing of websockets between different actions, stores, and/or components with react, webpack or browserify</h2>
 
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/RIAEvangelist/ws-share/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/RIAEvangelist/ws-share/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
 
-      </header>
-      <section>
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
         <h1>
 <a id="ws-share" class="anchor" href="#ws-share" aria-hidden="true"><span class="octicon octicon-link"></span></a>ws-share</h1>
 
-<p>A module allowing sharing of websockets between different actions, stores, and/or components with react, webpack or browserify. <strong><em>This module is brand new, don't hold its lack of stats and install against it, give it a shot!</em></strong></p>
+<p>A module allowing sharing of websockets between different functions, modules, scripts, actions, stores, and/or components with vanilla js (plain js), react, webpack or browserify. <strong><em>This module is brand new, don't hold its lack of stats and install against it, give it a shot!</em></strong></p>
 
 <p>npm ws-share info :  <a href="http://npm-stat.com/charts.html?package=ws-share&amp;author=&amp;from=&amp;to=">See npm trends and stats for ws-share</a><br>
 <img src="https://img.shields.io/npm/v/ws-share.svg" alt="ws-share npm version"> <img src="https://img.shields.io/node/v/ws-share.svg" alt="supported node version for ws-share"> <img src="https://img.shields.io/npm/dt/ws-share.svg" alt="total npm downloads for ws-share"> <img src="https://img.shields.io/npm/dm/ws-share.svg" alt="monthly npm downloads for ws-share"> <img src="https://img.shields.io/npm/l/ws-share.svg" alt="npm licence for ws-share"></p>
@@ -50,12 +51,17 @@
 <h2>
 <a id="what-does-ws-share-do" class="anchor" href="#what-does-ws-share-do" aria-hidden="true"><span class="octicon octicon-link"></span></a>What does ws-share do?</h2>
 
-<p>ws-share managaes a list of open websockets and protocols allowing websockets to be easily shared between multiple common js modules. Each module can create a new WS instance for a given uri and protocol. However, if a socket with that uri &amp; protocol list has already been opened, WS will refrence the open socket instead of creating a new socket for the same uri and protocol list.</p>
+<p>ws-share managaes a list of open websockets and protocols allowing websockets to be easily shared between multiple vanilla js (plain js), or common js modules. Each module can create a new WS instance for a given uri and protocol. However, if a socket with that uri &amp; protocol list has already been opened, WS will refrence the open socket instead of creating a new socket for the same uri and protocol list.</p>
 
-<p>ws-share is designed to feel like you are naturally working with a standard WebSocket.  </p>
+<p>ws-share is designed to feel like you are naturally working with a standard WebSocket</p>
 
 <h2>
 <a id="tips" class="anchor" href="#tips" aria-hidden="true"><span class="octicon octicon-link"></span></a>Tips</h2>
+
+<p>For vanilla js (just plain old js) include the browser.js file</p>
+
+<pre><code>&lt;script src='ws-share-vanilla.js' /&gt;
+</code></pre>
 
 <p>You should check ws.readyState upon creation.  </p>
 
@@ -158,7 +164,11 @@
 <p>This follows the <a href="https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API/Writing_WebSocket_client_applications">standard WebSocket interface</a>.  </p>
 
 <div class="highlight highlight-source-js"><pre>
+    <span class="pl-c">//commonjs</span>
     <span class="pl-k">var</span> <span class="pl-c1">WS</span><span class="pl-k">=</span><span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>ws-share<span class="pl-pds">'</span></span>);
+    <span class="pl-c">//or vanilla js</span>
+    <span class="pl-k">&lt;</span>script src<span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">'</span>ws-share-vanilla.js<span class="pl-pds">'</span></span> <span class="pl-k">/&gt;</span>
+
 
     <span class="pl-k">var</span> basicWS<span class="pl-k">=</span><span class="pl-k">new</span> <span class="pl-en">WS</span>(<span class="pl-s"><span class="pl-pds">'</span>wss://echo.websocket.org/?encoding=text<span class="pl-pds">'</span></span>);
 
@@ -180,7 +190,10 @@
 <p>This follows the <a href="https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API/Writing_WebSocket_client_applications">standard WebSocket interface</a> and also extends that interface with <code>.on</code> and <code>.off</code> as shortcuts for <code>.addEventListener</code> and <code>.removeEventListener</code> as on/off is commonly used in node applications and may be more intuitive for some developers.  All standard events are supported. <strong><em>Remember the scope of your callback is the shared websocket! if you want to use the react modules scope use</em></strong> <code>.bind(this)</code> <strong><em>on the callback</em></strong></p>
 
 <div class="highlight highlight-source-js"><pre>
+    <span class="pl-c">//commonjs</span>
     <span class="pl-k">var</span> <span class="pl-c1">WS</span><span class="pl-k">=</span><span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>ws-share<span class="pl-pds">'</span></span>);
+    <span class="pl-c">//or vanilla js</span>
+    <span class="pl-k">&lt;</span>script src<span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">'</span>ws-share-vanilla.js<span class="pl-pds">'</span></span> <span class="pl-k">/&gt;</span>
 
     <span class="pl-k">var</span> ws<span class="pl-k">=</span><span class="pl-k">new</span> <span class="pl-en">WS</span>(<span class="pl-s"><span class="pl-pds">'</span>wss://echo.websocket.org/?encoding=text<span class="pl-pds">'</span></span>);
 
@@ -220,7 +233,10 @@
 <p>You will notice this looks just like a standard websocket creation, but behind the scenes it stores a refrence to share with any other component, store, or action which may also need access to this same websocket.  </p>
 
 <div class="highlight highlight-source-js"><pre>
+    <span class="pl-c">//commonjs</span>
     <span class="pl-k">var</span> <span class="pl-c1">WS</span><span class="pl-k">=</span><span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>ws-share<span class="pl-pds">'</span></span>);
+    <span class="pl-c">//or vanilla js</span>
+    <span class="pl-k">&lt;</span>script src<span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">'</span>ws-share-vanilla.js<span class="pl-pds">'</span></span> <span class="pl-k">/&gt;</span>
 
     <span class="pl-k">var</span> ws<span class="pl-k">=</span><span class="pl-k">new</span> <span class="pl-en">WS</span>(<span class="pl-s"><span class="pl-pds">'</span>wss://echo.websocket.org/?encoding=text<span class="pl-pds">'</span></span>);
     ws.on(
@@ -334,11 +350,17 @@
 
 <p>This work is licenced via the <a href="http://www.dbad-license.org/">DBAD Public Licence</a>.</p>
       </section>
-      <footer>
-        <p><small>Hosted on <a href="https://pages.github.com">GitHub Pages</a> using the Dinky theme</small></p>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">Ws-share maintained by <a href="https://github.com/RIAEvangelist">RIAEvangelist</a></p>
+        <p>Published with <a href="https://pages.github.com">GitHub Pages</a></p>
       </footer>
     </div>
-    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
-		
+
+    
+
   </body>
 </html>
