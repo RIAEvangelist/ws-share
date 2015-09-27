@@ -11,6 +11,8 @@ npm ws-share info :  [See npm trends and stats for ws-share](http://npm-stat.com
 GitHub info :  
 [![ws-share GitHub Release](https://img.shields.io/github/release/RIAEvangelist/ws-share.svg) ![GitHub license ws-share license](https://img.shields.io/github/license/RIAEvangelist/ws-share.svg) ![open issues for ws-share on GitHub](https://img.shields.io/github/issues/RIAEvangelist/ws-share.svg)](http://riaevangelist.github.io/ws-share/)
 
+[ws-share site](http://riaevangelist.github.io/ws-share/)
+
 ## What does ws-share do?
 ws-share managaes a list of open websockets and protocols allowing websockets to be easily shared between multiple common js modules. Each module can create a new WS instance for a given uri and protocol. However, if a socket with that uri & protocol list has already been opened, WS will refrence the open socket instead of creating a new socket for the same uri and protocol list.
 
