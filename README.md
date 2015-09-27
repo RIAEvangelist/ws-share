@@ -2,7 +2,7 @@
 A module allowing sharing of websockets between different actions, stores, and/or components with react, webpack or browserify. ***This module is brand new, don't hold its lack of stats and install against it, give it a shot!***
 
 npm ws-share info :  [See npm trends and stats for ws-share](http://npm-stat.com/charts.html?package=ws-share&author=&from=&to=)  
-![ws-share npm version](https://img.shields.io/npm/v/ws-share.svg) ![supported node version for pizzapi](https://img.shields.io/node/v/pizzapi.svg) ![total npm downloads for pizzapi](https://img.shields.io/npm/dt/ws-share.svg) ![monthly npm downloads for pizzapi](https://img.shields.io/npm/dm/ws-share.svg) ![npm licence for pizzapi](https://img.shields.io/npm/l/ws-share.svg)
+![ws-share npm version](https://img.shields.io/npm/v/ws-share.svg) ![supported node version for ws-share](https://img.shields.io/node/v/ws-share.svg) ![total npm downloads for ws-share](https://img.shields.io/npm/dt/ws-share.svg) ![monthly npm downloads for ws-share](https://img.shields.io/npm/dm/ws-share.svg) ![npm licence for ws-share](https://img.shields.io/npm/l/ws-share.svg)
 
 [![RIAEvangelist](https://avatars3.githubusercontent.com/u/369041?v=3&s=100)](https://github.com/RIAEvangelist)
 
