@@ -3,6 +3,10 @@
 require('object.observe');
 require('object-assign');
 
+if(!WebSocket){
+    WebSocket = require('ws');
+}
+
 var wsList={};
 
 function wsClosed(e){
@@ -15,6 +19,9 @@ function WS(uri,protocols){
     }
     if(!wsList[uri+protocols]){
         var newWS=null;
+        if(isNode){
+            WebSocket = require('ws');
+        }
         if(protocols){
             newWS=new WebSocket(uri,protocols);
         }else{
@@ -96,6 +103,15 @@ function WS(uri,protocols){
         return ws.readyState;
     }
 
+}
+
+function isNode(){
+    try {
+        return this === global;
+    }catch(err)
+    {
+        return false;
+    }
 }
 
 module.exports=WS;
