@@ -3,10 +3,6 @@
 require('object.observe');
 require('object-assign');
 
-if(!WebSocket){
-    WebSocket = require('ws');
-}
-
 var wsList={};
 
 function wsClosed(e){
@@ -29,7 +25,7 @@ function WS(uri,protocols){
         }
 
         newWS._WS_KEY=uri+protocols;
-
+        newWS.addEventListener = newWS.on;
         newWS.addEventListener(
             'close',
             wsClosed
@@ -38,7 +34,8 @@ function WS(uri,protocols){
         wsList[uri+protocols]=newWS;
     }
     var ws=wsList[uri+protocols];
-
+    ws.addEventListener = ws.addListener;
+    ws.removeEventListener = ws.removeListener;
     Object.defineProperties(
         this,
         {
@@ -98,11 +95,6 @@ function WS(uri,protocols){
             this
         );
     }
-
-    function getReadyState(){
-        return ws.readyState;
-    }
-
 }
 
 function isNode(){
