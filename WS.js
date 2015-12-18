@@ -25,7 +25,7 @@ function WS(uri,protocols){
         }
 
         newWS._WS_KEY=uri+protocols;
-        newWS.addEventListener = newWS.on;
+        newWS.addEventListener = newWS.addListener;
         newWS.addEventListener(
             'close',
             wsClosed
