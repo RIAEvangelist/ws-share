@@ -25,7 +25,10 @@ function WS(uri,protocols){
         }
 
         newWS._WS_KEY=uri+protocols;
-        newWS.addEventListener = newWS.addListener;
+
+        if(isNode){
+            newWS.addEventListener = newWS.addListener;
+        }
         newWS.addEventListener(
             'close',
             wsClosed
@@ -34,8 +37,11 @@ function WS(uri,protocols){
         wsList[uri+protocols]=newWS;
     }
     var ws=wsList[uri+protocols];
-    ws.addEventListener = ws.addListener;
-    ws.removeEventListener = ws.removeListener;
+    
+    if(isNode){
+        ws.addEventListener = ws.addListener;
+        ws.removeEventListener = ws.removeListener;
+    }
     Object.defineProperties(
         this,
         {
