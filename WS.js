@@ -1,7 +1,8 @@
 //first require polyfills for Object.observe & assign when not present
 //this is especially hand for webpack and react
-require('object.observe');
-require('object-assign');
+if(isNode()){
+    WebSocket = require('ws');
+}
 
 var wsList={};
 
@@ -13,24 +14,32 @@ function WS(uri,protocols){
     if(!uri){
         throw('WS requires a uri to initialize');
     }
+    var newWS=null;
     if(!wsList[uri+protocols]){
-        var newWS=null;
+
         if(protocols){
             newWS=new WebSocket(uri,protocols);
         }else{
+
             newWS=new WebSocket(uri);
         }
 
         newWS._WS_KEY=uri+protocols;
-
-        newWS.addEventListener(
-            'close',
-            wsClosed
-        );
-
         wsList[uri+protocols]=newWS;
     }
     var ws=wsList[uri+protocols];
+
+    if(isNode()){
+        ws.addEventListener = ws.addListener;
+        ws.removeEventListener = ws.removeListener;
+    }
+
+    if(newWS){
+        ws.addEventListener(
+            'close',
+            wsClosed
+        );
+    }
 
     Object.defineProperties(
         this,
@@ -91,11 +100,15 @@ function WS(uri,protocols){
             this
         );
     }
+}
 
-    function getReadyState(){
-        return ws.readyState;
+function isNode(){
+    try {
+        return this === global;
+    }catch(err)
+    {
+        return false;
     }
-
 }
 
 module.exports=WS;
