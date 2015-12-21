@@ -1,6 +1,6 @@
 {
   "name": "ws-share",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "sharing websockets between different modules or components for react, flux, reflux, webpack or browserify",
   "main": "WS.js",
   "scripts": {
@@ -12,7 +12,7 @@
     "url": "git+https://github.com/RIAEvangelist/ws-share.git"
   },
   "engines": {
-    "node": ">=0.10.0"
+    "node": ">=1.0.0"
   },
   "keywords": [
     "react",
@@ -36,7 +36,8 @@
     "store",
     "stores",
     "action",
-    "actions"
+    "actions",
+    "vanilla"
   ],
   "author": "Brandon Nozaki Miller",
   "license": "DBAD",
@@ -45,8 +46,7 @@
   },
   "homepage": "https://github.com/RIAEvangelist/ws-share#readme",
   "dependencies": {
-    "object-assign": "^4.0.1",
-    "object.observe": "^0.2.4"
+    "ws": "*"
   },
   "devDependencies": {
     "css-loader": "^0.19.0",
