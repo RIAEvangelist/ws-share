@@ -1,6 +1,6 @@
 //first require polyfills for Object.observe & assign when not present
 //this is especially hand for webpack and react
-if(isNode){
+if(isNode()){
     WebSocket = require('ws');
 }
 
@@ -17,7 +17,6 @@ function WS(uri,protocols){
     var newWS=null;
     if(!wsList[uri+protocols]){
 
-
         if(protocols){
             newWS=new WebSocket(uri,protocols);
         }else{
@@ -26,12 +25,11 @@ function WS(uri,protocols){
         }
 
         newWS._WS_KEY=uri+protocols;
-
         wsList[uri+protocols]=newWS;
     }
     var ws=wsList[uri+protocols];
 
-    if(isNode){
+    if(isNode()){
         ws.addEventListener = ws.addListener;
         ws.removeEventListener = ws.removeListener;
     }

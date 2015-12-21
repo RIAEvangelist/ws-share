@@ -146,6 +146,36 @@ You will notice this looks just like a standard websocket creation, but behind t
     );
 
 ```
+## Basic Node Example :
+
+```javascript
+
+    var WS=require('ws-share');
+
+    var ws=new WS('wss://echo.websocket.org/?encoding=text');
+
+    ws.on(
+       'open',
+       function(){
+           ws.send('hello world!');
+       }
+    );
+
+    ws.on(
+        'message',
+        function (message){
+            console.log(message);
+        }
+    );
+
+    ws.on(
+        'error',
+        function (err){
+            console.log('error encountered :', err);
+        }
+    );
+
+```
 
 ## Basic React Send Example :
 You will notice this looks just like a standard websocket creation, but behind the scenes it stores a refrence to share with any other component, store, or action which may also need access to this same websocket. For example, the next example, Output would share this same ws without needing a different format.
