@@ -1,10 +1,10 @@
-//first require polyfills for Object.observe & assign when not present
-//this is especially hand for webpack and react
+'use strict';
+
 if(isNode()){
     WebSocket = require('ws');
 }
 
-var wsList={};
+const wsList={};
 
 function wsClosed(e){
     delete wsList[this._WS_KEY];
@@ -14,7 +14,7 @@ function WS(uri,protocols){
     if(!uri){
         throw('WS requires a uri to initialize');
     }
-    var newWS=null;
+    let newWS=null;
     if(!wsList[uri+protocols]){
 
         if(protocols){
@@ -27,7 +27,7 @@ function WS(uri,protocols){
         newWS._WS_KEY=uri+protocols;
         wsList[uri+protocols]=newWS;
     }
-    var ws=wsList[uri+protocols];
+    const ws=wsList[uri+protocols];
 
     if(isNode()){
         ws.addEventListener = ws.addListener;
@@ -102,13 +102,14 @@ function WS(uri,protocols){
     }
 }
 
-function isNode(){
+function isNode() {
+    let isNode = true;
     try {
-        return this === global;
-    }catch(err)
-    {
-        return false;
+        isNode = ( Window ) ? false : true;
+    } catch ( err ) {
+        //not the browser
     }
+    return isNode;
 }
 
 module.exports=WS;
