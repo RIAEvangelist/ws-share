@@ -27,6 +27,13 @@ var config={
     externals: {
 
     },
+    node: {
+        net: 'empty',
+        tls: 'empty',
+        mime: 'empty',
+        fs: 'empty',
+        child_process: 'empty'
+    },
     resolve: {
         extensions: ['', '.js', '.jsx'],
         modulesDirectories: ['node_modules'],
