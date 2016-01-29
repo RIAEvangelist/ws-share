@@ -1,5 +1,5 @@
 # ws-share
-A module allowing sharing of websockets between different functions, modules, scripts, actions, stores, and/or components with vanilla js (plain js), react, webpack or browserify. ***This module is brand new, don't hold its lack of stats and install against it, give it a shot!***
+A module allowing isomorphic sharing of websockets between different functions, modules, scripts, actions, stores, and/or components with vanilla js (plain js), react, webpack or browserify. ***This module is brand new, don't hold its lack of stats and install against it, give it a shot!***
 
 npm ws-share info :  [See npm trends and stats for ws-share](http://npm-stat.com/charts.html?package=ws-share&author=&from=&to=)  
 ![ws-share npm version](https://img.shields.io/npm/v/ws-share.svg) ![supported node version for ws-share](https://img.shields.io/node/v/ws-share.svg) ![total npm downloads for ws-share](https://img.shields.io/npm/dt/ws-share.svg) ![monthly npm downloads for ws-share](https://img.shields.io/npm/dm/ws-share.svg) ![npm licence for ws-share](https://img.shields.io/npm/l/ws-share.svg)
@@ -14,9 +14,11 @@ GitHub info :
 [ws-share site](http://riaevangelist.github.io/ws-share/)
 
 ## What does ws-share do?
-ws-share managaes a list of open websockets and protocols allowing websockets to be easily shared between multiple vanilla js (plain js), or common js modules. Each module can create a new WS instance for a given uri and protocol. However, if a socket with that uri & protocol list has already been opened, WS will refrence the open socket instead of creating a new socket for the same uri and protocol list.
+ws-share extends and normalizes both node ws and the browser WebSocket normalizing events ***and manages of a list of open websockets and protocols allowing websockets to be easily shared*** between multiple vanilla js (plain js), or common js modules. Each module can create a new WS instance for a given uri and protocol. However, if a socket with that uri & protocol list has already been opened, WS will reference the open socket instead of creating a new socket for the same uri and protocol list.
 
 ws-share is designed to feel like you are naturally working with a standard WebSocket
+
+***ws-share makes your WebSocket code isomorphic, the same code will run both in node AND in the browser!***
 
 ## Tips
 For vanilla js (just plain old js) include the browser.js file
@@ -27,7 +29,9 @@ You should check ws.readyState upon creation.
 
 ***Why?***  
 
-If the websocket was already opened  `ws.on('open',callback)` wont be called. So checking the ready state will allow you to perform any initialization needed in your component, action or store.
+If the shared websocket was already opened  `ws.on('open',callback)` wont be called. So checking the ready state will allow you to perform any initialization needed in your node module, browser code, react component, action or store.
+
+Everything normally available on the WebSocket is available plus the normalized methods and members added to the shared WebSockets below, this helps your code stay isomorphic so it can run on the server and browser :
 
 |method or value    |type   |mutable|description|
 |-------------------|-------|-------|-----------|
@@ -35,12 +39,6 @@ If the websocket was already opened  `ws.on('open',callback)` wont be called. So
 |protocols          |array/string|false  |the protocols of the shared ws|
 |on                 |func   |false  |bind event listener to shared websocket|
 |off                |func   |false  |UNbind event listener to shared websocket|
-|addEventListener   |func   |false  |bind event listener to shared websocket|
-|removeEventListener|func   |false  |UNbind event listener to shared websocket|
-|send               |func   |false  |Send data to server|
-|readyState         |number |not by user|The current readyState of the shared websocket|
-|toObject           |func   |false  |returns an object representation of an instantiated version of this class|
-
 
 ## Contributing
 

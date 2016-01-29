@@ -1,7 +1,11 @@
 'use strict';
 
+var WebSocket=null;
+
 if(isNode()){
     WebSocket = require('ws');
+}else{
+    WebSocket=window.WebSocket;
 }
 
 const wsList={};
@@ -33,6 +37,9 @@ class WS{
         if(isNode()){
             ws.addEventListener = ws.addListener;
             ws.removeEventListener = ws.removeListener;
+        }else{
+            ws.addListener = ws.addEventListener;
+            ws.removeListener = ws.removeEventListener;
         }
 
         if(newWS){
@@ -40,10 +47,12 @@ class WS{
                 'close',
                 wsClosed
             );
+        }else{
+            return ws;
         }
 
         Object.defineProperties(
-            this,
+            ws,
             {
                 uri:{
                     writable:false,
@@ -58,49 +67,17 @@ class WS{
                 on:{
                     writable:false,
                     enumerable:true,
-                    value:ws.addEventListener.bind(ws)
+                    value:ws.addEventListener
                 },
                 off:{
                     writable:false,
                     enumerable:true,
-                    value:ws.removeEventListener.bind(ws)
-                },
-                addEventListener:{
-                    writable:false,
-                    enumerable:true,
-                    value:ws.addEventListener.bind(ws)
-                },
-                removeEventListener:{
-                    writable:false,
-                    enumerable:true,
-                    value:ws.removeEventListener.bind(ws)
-                },
-                send:{
-                    writable:false,
-                    enumerable:true,
-                    value:ws.send.bind(ws)
-                },
-                readyState:{
-                    get:getReadyState,
-                    set:getReadyState
-                },
-                toObject:{
-                    get:getAsObject,
-                    set:getAsObject
+                    value:ws.removeEventListener
                 }
             }
         );
 
-        function getReadyState(){
-            return ws.readyState;
-        }
-
-        function getAsObject(){
-            return Object.assign(
-                {},
-                this
-            );
-        }
+        return ws;
     }
 }
 

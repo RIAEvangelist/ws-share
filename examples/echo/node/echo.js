@@ -1,4 +1,6 @@
-var WS=require('ws-share');
+'use strict';
+
+var WS=require(`${__dirname}/../../../WS.js`);
 
 var ws=new WS('wss://echo.websocket.org/?encoding=text');
 
