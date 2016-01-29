@@ -1,7 +1,7 @@
 {
   "name": "ws-share",
-  "version": "2.0.1",
-  "description": "sharing websockets between different modules or components for react, flux, reflux, webpack or browserify",
+  "version": "2.0.2",
+  "description": "sharing websockets for node and the browser isomorphically. Use between different node modules or components for react, flux, reflux, webpack or browserify",
   "main": "WS.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
