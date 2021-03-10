@@ -1,5 +1,5 @@
 # ws-share
-A module allowing isomorphic sharing of websockets between different functions, modules, scripts, actions, stores, and/or components with vanilla js (plain js), react, webpack or browserify. ***This module is brand new, don't hold its lack of stats and install against it, give it a shot!***
+A module allowing isomorphic sharing of websockets between different functions, modules, scripts, actions, stores, and/or components with vanilla js (plain js), react, webpack or browserify.
 
 npm ws-share info :  [See npm trends and stats for ws-share](http://npm-stat.com/charts.html?package=ws-share&author=&from=&to=)  
 [![Package Quality](http://npm.packagequality.com/badge/ws-share.png)](http://packagequality.com/#?package=ws-share)  
