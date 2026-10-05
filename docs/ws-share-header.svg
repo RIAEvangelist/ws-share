@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 520" role="img" aria-labelledby="title description">
+  <title id="title">ws-share — one WebSocket, many modules</title>
+  <desc id="description">Airlock, Moon Cafe, and Mission Control connect through one shared WebSocket. JavaScript for Node.js and the browser.</desc>
+  <defs>
+    <linearGradient id="background" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#101d31"/>
+      <stop offset="1" stop-color="#08121f"/>
+    </linearGradient>
+    <radialGradient id="glow">
+      <stop stop-color="#c5f36b" stop-opacity=".15"/>
+      <stop offset="1" stop-color="#c5f36b" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1440" height="520" rx="24" fill="url(#background)"/>
+  <circle cx="1120" cy="260" r="270" fill="url(#glow)"/>
+  <g fill="#a2afbf" opacity=".3">
+    <circle cx="708" cy="93" r="2"/>
+    <circle cx="1300" cy="75" r="2"/>
+    <circle cx="1380" cy="385" r="2"/>
+    <circle cx="779" cy="450" r="2"/>
+    <circle cx="680" cy="365" r="2"/>
+    <circle cx="1032" cy="63" r="2"/>
+  </g>
+  <g font-family="Arial, Helvetica, sans-serif">
+    <rect x="72" y="70" width="184" height="34" rx="17" fill="#c5f36b"/>
+    <text x="164" y="92" text-anchor="middle" fill="#101d31" font-size="13" font-weight="700" letter-spacing="2">SHARE THE CHANNEL</text>
+    <text x="68" y="222" fill="#f4f7fa" font-size="100" font-weight="700" letter-spacing="-6">ws-share</text>
+    <text x="72" y="286" fill="#c5f36b" font-size="31" font-weight="700">One WebSocket.</text>
+    <text x="72" y="330" fill="#c5f36b" font-size="31" font-weight="700">Many modules.</text>
+    <text x="72" y="421" fill="#afbdcd" font-size="19">Node.js + browser  /  Same JavaScript</text>
+  </g>
+  <g fill="none" stroke="#c5f36b" stroke-width="3">
+    <path d="M943 140h70q22 0 22 22v76q0 22 22 22h42"/>
+    <path d="M943 260h156"/>
+    <path d="M943 380h70q22 0 22-22v-76q0-22 22-22h42"/>
+    <path d="M1239 260h105"/>
+  </g>
+  <g fill="#101e30" stroke="#34465b" stroke-width="2">
+    <rect x="752" y="104" width="192" height="72" rx="14"/>
+    <rect x="752" y="224" width="192" height="72" rx="14"/>
+    <rect x="752" y="344" width="192" height="72" rx="14"/>
+  </g>
+  <g fill="#f4f7fa" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="700" letter-spacing="1" text-anchor="middle">
+    <text x="848" y="146">AIRLOCK</text>
+    <text x="848" y="266">MOON CAFE</text>
+    <text x="848" y="386">MISSION CONTROL</text>
+  </g>
+  <circle cx="1169" cy="260" r="70" fill="#c5f36b"/>
+  <g fill="none" stroke="#101d31" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M1144 241l-19 19 19 19m50-38 19 19-19 19m-18-45-16 52"/>
+  </g>
+  <circle cx="1344" cy="260" r="9" fill="#c5f36b"/>
+  <text x="1169" y="365" text-anchor="middle" fill="#afbdcd" font-family="Arial, Helvetica, sans-serif" font-size="15" letter-spacing="2">ONE SHARED SOCKET</text>
+</svg>

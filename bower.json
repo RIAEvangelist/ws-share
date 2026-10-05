@@ -1,7 +1,7 @@
 {
   "name": "ws-share",
-  "description": "sharing websockets for node and the browser isomorphically. Use between different node modules or components for react, flux, reflux, webpack or browserify",
-  "main": "WS.js",
+  "description": "Share native WebSocket connections across JavaScript modules and browser components.",
+  "main": "ws-share-vanilla.js",
   "authors": [
     "Brandon Nozaki Miller"
   ],
@@ -31,10 +31,10 @@
     "actions",
     "vanilla"
   ],
-  "homepage": "https://github.com/RIAEvangelist/ws-share",
+  "homepage": "https://riaevangelist.github.io/ws-share/",
   "moduleType": [
     "globals",
-    "node"
+    "es6"
   ],
   "ignore": [
     "**/.*",

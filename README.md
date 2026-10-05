@@ -1,284 +1,166 @@
+[![ws-share — one WebSocket, many modules](https://raw.githubusercontent.com/RIAEvangelist/ws-share/main/docs/ws-share-header.svg)](https://riaevangelist.github.io/ws-share/)
+
 # ws-share
-A module allowing isomorphic sharing of websockets between different functions, modules, scripts, actions, stores, and/or components with vanilla js (plain js), react, webpack or browserify.
 
-npm ws-share info :  [See npm trends and stats for ws-share](http://npm-stat.com/charts.html?package=ws-share&author=&from=&to=)  
-[![Package Quality](http://npm.packagequality.com/badge/ws-share.png)](http://packagequality.com/#?package=ws-share)  
-![ws-share npm version](https://img.shields.io/npm/v/ws-share.svg) ![supported node version for ws-share](https://img.shields.io/node/v/ws-share.svg) ![total npm downloads for ws-share](https://img.shields.io/npm/dt/ws-share.svg) ![monthly npm downloads for ws-share](https://img.shields.io/npm/dm/ws-share.svg) ![npm licence for ws-share](https://img.shields.io/npm/l/ws-share.svg)
+Share native WebSockets between JavaScript modules, components and scripts in Node.js and browsers. Zero runtime dependencies, one isomorphic implementation, and a small API.
 
-` npm install --save ws-share `  
+[Documentation](https://riaevangelist.github.io/ws-share/) · [Quick start](https://riaevangelist.github.io/ws-share/#start) · [Browser](https://riaevangelist.github.io/ws-share/#browser) · [API](https://riaevangelist.github.io/ws-share/#api) · [Connection lifecycle](https://riaevangelist.github.io/ws-share/#sharing) · [Upgrade](https://riaevangelist.github.io/ws-share/#upgrade)
 
-[![RIAEvangelist](https://avatars3.githubusercontent.com/u/369041?v=3&s=100)](https://github.com/RIAEvangelist)
+[![npm version](https://img.shields.io/npm/v/ws-share.svg)](https://www.npmjs.com/package/ws-share)
+[![npm downloads](https://img.shields.io/npm/dm/ws-share.svg)](https://www.npmjs.com/package/ws-share)
+[![Node.js support](https://img.shields.io/badge/node-%3E%3D22.13-339933?logo=nodedotjs&logoColor=white)](https://riaevangelist.github.io/ws-share/#upgrade)
+[![runtime dependencies](https://img.shields.io/badge/runtime_dependencies-0-c5f36b)](https://www.npmjs.com/package/ws-share?activeTab=dependencies)
+[![license](https://img.shields.io/npm/l/ws-share.svg)](./licence.md)
 
-GitHub info :  
-[![ws-share GitHub Release](https://img.shields.io/github/release/RIAEvangelist/ws-share.svg) ![GitHub license ws-share license](https://img.shields.io/github/license/RIAEvangelist/ws-share.svg) ![open issues for ws-share on GitHub](https://img.shields.io/github/issues/RIAEvangelist/ws-share.svg)](http://riaevangelist.github.io/ws-share/)
+## Quick start
 
-[ws-share site](http://riaevangelist.github.io/ws-share/)
-
-## What does ws-share do?
-ws-share extends and normalizes both node ws and the browser WebSocket normalizing events ***and manages of a list of open websockets and protocols allowing websockets to be easily shared*** between multiple vanilla js (plain js), or common js modules. Each module can create a new WS instance for a given uri and protocol. However, if a socket with that uri & protocol list has already been opened, WS will reference the open socket instead of creating a new socket for the same uri and protocol list.
-
-ws-share is designed to feel like you are naturally working with a standard WebSocket
-
-***ws-share makes your WebSocket code isomorphic, the same code will run both in node AND in the browser!***
-
-## Tips
-For vanilla js (just plain old js) include the browser.js file
-
-    <script src='ws-share-vanilla.js' />
-
-You should check ws.readyState upon creation.  
-
-***Why?***  
-
-If the shared websocket was already opened  `ws.on('open',callback)` wont be called. So checking the ready state will allow you to perform any initialization needed in your node module, browser code, react component, action or store.
-
-Everything normally available on the WebSocket is available plus the normalized methods and members added to the shared WebSockets below, this helps your code stay isomorphic so it can run on the server and browser :
-
-|method or value    |type   |mutable|description|
-|-------------------|-------|-------|-----------|
-|uri                |string |false  |the uri of the shared ws|
-|protocols          |array/string|false  |the protocols of the shared ws|
-|on                 |func   |false  |bind event listener to shared websocket|
-|off                |func   |false  |UNbind event listener to shared websocket|
-
-## Contributing
-
-1. Pull or Fork code.
-2. from the cloned directory run ` npm install ` (this will install required dependencies, depending on your system may require)
-3. be awesome!
-
-## Running Example React Shared WebSocket Echo App
-This very basic react.js example app has two components share the same websocket. Neither is aware they are sharing though. The Input component sends info upto the server while the Output listens for messages from the server. The [websocket.org](https://websocket.org/) server here just echo's all information back for demo purposes.
-
-#### Browser
-
-1. ` npm install `
-2. ` npm start echo `
-3. goto [localhost:8080](http://localhost:8080)
-4. type some stuff and watch both components use the same websocket
-
-#### Node
-1. ` node examples/echo/node/echo.js `
-
-## Create or Use Existing Shared WebSocket
-This follows the [standard WebSocket interface](https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API/Writing_WebSocket_client_applications).  
-
-```javascript  
-
-    //commonjs
-    var WS=require('ws-share');
-    //or vanilla js
-    <script src='ws-share-vanilla.js' />
-
-
-    var basicWS=new WS('wss://echo.websocket.org/?encoding=text');
-
-    var wsWithOneProtocol=new WS('wss://echo.websocket.org/?encoding=text','stream');
-
-    var wsWithManyProtocols=new WS(
-        'wss://echo.websocket.org/?encoding=text',
-        [
-            'stream',
-            'chat',
-            'whatever'
-        ]
-    );
-
+```sh
+npm install ws-share
 ```
 
-
-## Bind Events on a Shared WebSocket
-This follows the [standard WebSocket interface](https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API/Writing_WebSocket_client_applications) and also extends that interface with ` .on ` and ` .off ` as shortcuts for ` .addEventListener ` and ` .removeEventListener ` as on/off is commonly used in node applications and may be more intuitive for some developers.  All standard events are supported. ***Remember the scope of your callback is the shared websocket! if you want to use the react modules scope use*** ` .bind(this) ` ***on the callback***
-
-```javascript  
-
-    //commonjs
-    var WS=require('ws-share');
-    //or vanilla js
-    <script src='ws-share-vanilla.js' />
-
-    var ws=new WS('wss://echo.websocket.org/?encoding=text');
-
-    ws.on(
-        'open',
-        function(e){
-            console.log('shared websocket open!');
-        }
-    )
-
-    ws.on(
-        'close',
-        function(e){
-            console.log('shared websocket closed!');
-        }
-    )
-
-    ws.on(
-        'error',
-        function(e){
-            console.log('OMG there\'s been an error!',e);
-        }
-    )
-
-    ws.on(
-        'message',
-        function(e){
-            console.log('got message on shared ws!',e.data);
-        }
-    )
-
-
-```
-
-## Basic Example :
-You will notice this looks just like a standard websocket creation, but behind the scenes it stores a refrence to share with any other component, store, or action which may also need access to this same websocket.  
-
-```javascript  
-
-    //commonjs
-    var WS=require('ws-share');
-    //or vanilla js
-    <script src='ws-share-vanilla.js' />
-
-    var ws=new WS('wss://echo.websocket.org/?encoding=text');
-    ws.on(
-        'message',
-        function(e){
-            console.log(e.data);
-        }
-    );
-
-```
-## Basic Node Example :
+Replace the example address with your application's WebSocket server:
 
 ```javascript
+import WS from 'ws-share';
 
-    var WS=require('ws-share');
+const airlock = new WS('wss://moon.example/control');
+const cafe = new WS('wss://moon.example/control');
 
-    var ws=new WS('wss://echo.websocket.org/?encoding=text');
+console.log(airlock === cafe); // true
 
-    ws.on(
-       'open',
-       function(){
-           ws.send('hello world!');
-       }
+function receiveOrder(event) {
+    console.log('Moon cafe:', event.data);
+}
+
+cafe.on('message', receiveOrder);
+
+function orderCoffee() {
+    airlock.send('One espresso. Low gravity. Extra lid.');
+}
+
+if (airlock.readyState === WebSocket.OPEN) {
+    orderCoffee();
+} else {
+    airlock.on(
+        'open',
+        orderCoffee,
+        {once: true}
     );
-
-    ws.on(
-        'message',
-        function (message){
-            console.log(message);
-        }
-    );
-
-    ws.on(
-        'error',
-        function (err){
-            console.log('error encountered :', err);
-        }
-    );
-
+}
 ```
 
-## Basic React Send Example :
-You will notice this looks just like a standard websocket creation, but behind the scenes it stores a refrence to share with any other component, store, or action which may also need access to this same websocket. For example, the next example, Output would share this same ws without needing a different format.
+A shared connection may already be open. Check `readyState` before waiting for `open`.
 
-```javascript  
+CommonJS receives the same constructor:
 
-    var React=require('react');
-    var WS=require('ws-share');
-
-    var Input=React.createClass(
-        {
-            componentWillMount:function(){
-                this.ws=new WS('wss://echo.websocket.org/?encoding=text');
-            },
-            componentWillUnmount:function(){
-                this.ws=null;
-            },
-            _change:function(e){
-                if(this.ws.readyState!==1){
-                    console.log('WS not yet connected or already disconnected. Can not send message.');
-                    return;
-                }
-                this.ws.send(e.target.value);
-            },
-            render:function(){
-                return (
-                    <div>
-                        <h3>
-                            Send To Server
-                        </h3>
-                        <input onChange={this._change} />
-                    </div>
-                )
-            }
-        }
-    );
-
-    module.exports=Input;
-
+```javascript
+const WS = require('ws-share');
 ```
 
-## Basic React Listen for Message Example :
-You will notice this looks just like a standard websocket creation, but behind the scenes it stores a refrence to share with any other component, store, or action which may also need access to this same websocket. For example, the previous example, Input would share this same ws without needing a different format.
+Both loaders use the same synchronous `WS.js` source on Node.js 22.13 and newer. Browsers and workers use their native `globalThis.WebSocket` through that same source.
 
-```javascript  
+## Browser use
 
-    var React=require('react');
-    var WS=require('ws-share');
+A native browser import map resolves the package name directly to the installed source:
 
-    var Output=React.createClass(
-        {
-            getInitialState:function(){
-                return {
-                    message:''
-                }
-            },
-            componentWillMount:function(){
-                this.ws=new WS('wss://echo.websocket.org/?encoding=text');
-                this.ws.on(
-                    'message',
-                    function(e){
-                        this.setState(
-                            {
-                                message:e.data
-                            }
-                        )
-                    //We want to use this.state,
-                    //so we have to bind the react component
-                    //scope to the callback
-                    }.bind(this)
-                );
-            },
-            componentWillUnmount:function(){
-                this.ws=null;
-            },
-            _change:function(e){
-                if(this.ws.readyState!==1){
-                    console.log('WS not yet connected or already disconnected. Can not send message.');
-                    return;
-                }
-                this.ws.send(e.target.value);
-            },
-            render:function(){
-                return (
-                    <div>
-                        <h3>
-                            Got From Server
-                        </h3>
-                        <textarea value={this.state.message} />
-                    </div>
-                )
-            }
-        }
-    );
+```html
+<script type="importmap">
+{
+    "imports": {
+        "ws-share": "./node_modules/ws-share/WS.js"
+    }
+}
+</script>
+<script type="module">
+    import WS from 'ws-share';
 
-    module.exports=Output;
+    const socket = new WS('wss://moon.example/control');
 
+    function receiveMessage(event) {
+        console.log(event.data);
+    }
 
+    socket.on('message', receiveMessage);
+</script>
 ```
 
----
+Import-map URLs are relative to the HTML document. Serve the page over HTTP(S), and expose the mapped file at that URL. You can also import `WS.js` by URL directly or let a bundler resolve the ordinary package import.
 
-This work is licenced via the [DBAD Public Licence](http://www.dbad-license.org/).
+For a classic script, load the browser entry before using its `WS` global:
+
+```html
+<script src="./node_modules/ws-share/ws-share-vanilla.js"></script>
+<script>
+    const socket = new WS('wss://moon.example/control');
+</script>
+```
+
+The classic entry is generated from the same source for script-tag consumers. Choose one loading style per application; classic scripts and ES modules have separate connection pools.
+
+## API
+
+`new WS(uri, protocols?)` returns the shared native WebSocket itself. The protocol argument accepts a string or an iterable of strings, such as an ordered array. A missing URI throws a `TypeError`; the native WebSocket constructor handles URL and protocol errors.
+
+| Member | Purpose |
+| --- | --- |
+| `uri` | Read-only URI supplied when the socket was created. |
+| `protocols` | Read-only property containing the originally requested protocols; native `protocol` reports the negotiated value. |
+| `on(type, listener, options?)`, `addListener(...)` | Aliases for native `addEventListener`. |
+| `off(type, listener, options?)`, `removeListener(...)` | Aliases for native `removeEventListener`. |
+| `send(data)`, `close(code?, reason?)` | Native operations on the shared connection. |
+| `readyState`, `bufferedAmount`, `binaryType`, `url`, `protocol`, `extensions` | Native WebSocket state and configuration. |
+
+Listeners receive native event objects. Read a message from `event.data`. Listener aliases return `undefined`, just like the corresponding EventTarget methods.
+
+## Connection sharing and cleanup
+
+A matching exact URI string and ordered protocol list reuse a socket while it is `CONNECTING` or `OPEN`. `'chat'` and `['chat']` identify the same protocol list; an omitted or empty protocol argument identifies the empty list. Protocol order matters, and URI spelling is preserved.
+
+A `CLOSING` or `CLOSED` socket is replaced on the next request. A closing socket's later `close` event leaves its replacement intact. There is no automatic reconnect; existing holders retain their original socket until they ask for another one.
+
+Every holder receives the same socket object. Calling `close()` closes it for every module; changing `binaryType` affects every listener. Let the application own the connection's lifetime. Remove a component's listener when the component goes away:
+
+```javascript
+function showCafeMessage(event) {
+    console.log(event.data);
+}
+
+socket.on('message', showCafeMessage);
+
+// Run during this component's cleanup.
+socket.off('message', showCafeMessage);
+```
+
+Use event listeners when modules need independent handlers. Assigning `socket.onmessage` replaces the socket's single property handler.
+
+Sharing is scoped to a loaded implementation. Separate processes, browser tabs, workers, package copies and loading styles have separate pools. The application owns its message format, reconnect policy and final connection cleanup.
+
+## Upgrading from 2.x
+
+Version 3.0.0 uses native WebSocket clients throughout:
+
+- Node.js 22.13 or newer is required; browsers and workers need a native `WebSocket`.
+- Both `import WS from 'ws-share'` and `const WS = require('ws-share')` return the same constructor in Node.
+- Node message listeners now receive a `MessageEvent`; read `event.data`. Native close events expose `event.code` and `event.reason`.
+- Binary messages follow native `binaryType` behavior. Set `socket.binaryType = 'arraybuffer'` when your handler needs an `ArrayBuffer`, and update code that expected a Node `Buffer`.
+- Node-specific `ws` extensions such as `ping`, `pong`, `terminate` and EventEmitter methods are outside the native WebSocket API. Use the standard client API when upgrading.
+- `on`, `off`, `addListener` and `removeListener` follow EventTarget semantics, including listener options and an `undefined` return value.
+- The classic browser `WS` entry remains available. The package uses native JavaScript without webpack or a separate Node bundle.
+
+See the [release notes](https://github.com/RIAEvangelist/ws-share/releases) for the complete release history.
+
+## Run the examples
+
+From the repository, run `npm start` and open `http://127.0.0.1:8080/` for the documentation or `http://127.0.0.1:8080/examples/echo/` for the browser example. Enter your WebSocket echo server's address to send and receive a message through one shared socket.
+
+Run the Node example against the same server:
+
+```sh
+node examples/echo/node/echo.js ws://localhost:8081
+```
+
+The examples and documentation server use Node's built-in modules. No dependency installation or bundler is needed.
+
+## License
+
+[DBAD Public License](./licence.md) · Brandon Nozaki Miller

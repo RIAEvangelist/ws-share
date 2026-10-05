@@ -1,10 +1,20 @@
 {
   "name": "ws-share",
-  "version": "2.0.2",
-  "description": "sharing websockets for node and the browser isomorphically. Use between different node modules or components for react, flux, reflux, webpack or browserify",
-  "main": "WS.js",
+  "version": "3.0.0",
+  "description": "Share native WebSocket connections across Node.js modules and browser components with zero dependencies.",
+  "type": "module",
+  "main": "./WS.js",
+  "browser": "./WS.js",
+  "files": [
+    "WS.js",
+    "ws-share-vanilla.js",
+    "CHANGELOG.md",
+    "licence.md"
+  ],
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "node --test",
+    "build:browser": "node scripts/browser.js",
+    "prepack": "npm run build:browser",
     "start": "node devServer.js"
   },
   "repository": {
@@ -12,7 +22,7 @@
     "url": "git+https://github.com/RIAEvangelist/ws-share.git"
   },
   "engines": {
-    "node": ">=1.0.0"
+    "node": ">=22.13.0"
   },
   "keywords": [
     "react",
@@ -44,17 +54,5 @@
   "bugs": {
     "url": "https://github.com/RIAEvangelist/ws-share/issues"
   },
-  "homepage": "https://github.com/RIAEvangelist/ws-share#readme",
-  "dependencies": {
-    "ws": "*"
-  },
-  "devDependencies": {
-    "css-loader": "^0.19.0",
-    "jsx-loader": "^0.13.2",
-    "react": "^0.13.3",
-    "react-hot-loader": "^1.3.0",
-    "style-loader": "^0.12.4",
-    "webpack": "^1.12.12",
-    "webpack-dev-server": "^1.14.1"
-  }
+  "homepage": "https://riaevangelist.github.io/ws-share/"
 }

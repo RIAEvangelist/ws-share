@@ -1,11 +1,27 @@
-<!DOCTYPE HTML>
-<html>
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
-        <script src='js/bundle.js'></script>
-    </head>
-    <body>
-            
-    </body>
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>ws-share — shared echo connection</title>
+    <script type="module" src="./js/app.js"></script>
+</head>
+<body>
+    <h1>One socket, two jobs</h1>
+    <p>Connect to your WebSocket echo server. The sender and receiver request the same connection independently.</p>
+    <form id="connect-form">
+        <label for="uri">Echo server URL</label>
+        <input id="uri" type="url" placeholder="ws://localhost:8081" required>
+        <button type="submit">Connect</button>
+        <button id="disconnect" type="button" disabled>Disconnect</button>
+    </form>
+    <p id="status" role="status">Choose an echo server to begin.</p>
+    <form id="send-form">
+        <label for="message">Message</label>
+        <input id="message" value="One espresso. Low gravity. Extra lid." required>
+        <button id="send" type="submit" disabled>Send</button>
+    </form>
+    <h2>Received from the server</h2>
+    <pre id="output" aria-live="polite"></pre>
+</body>
 </html>

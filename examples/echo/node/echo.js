@@ -1,26 +1,35 @@
-'use strict';
+import WS from '../../../WS.js';
 
-var WS=require(`${__dirname}/../../../WS.js`);
+const uri = process.argv[2];
+if (!uri) {
+    throw new TypeError('Pass your echo server URL: node examples/echo/node/echo.js ws://localhost:8081');
+}
 
-var ws=new WS('wss://echo.websocket.org/?encoding=text');
+const sender = new WS(uri);
+const receiver = new WS(uri);
+console.log('Same shared socket:', sender === receiver);
 
-ws.on(
-   'open',
-   function(){
-       ws.send('hello world!');
-   }
+sender.on(
+    'open',
+    function orderCoffee() {
+        sender.send('One espresso. Low gravity. Extra lid.');
+    },
+    {once: true}
 );
 
-ws.on(
+receiver.on(
     'message',
-    function (message){
-        console.log(message);
-    }
+    function receiveOrder(event) {
+        console.log(event.data);
+        receiver.close();
+    },
+    {once: true}
 );
 
-ws.on(
+receiver.on(
     'error',
-    function (err){
-        console.log('error encountered :', err);
+    function reportError(event) {
+        console.error('WebSocket connection failed.', event);
+        process.exitCode = 1;
     }
 );

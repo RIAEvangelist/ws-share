@@ -1,0 +1,531 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Share native WebSockets between JavaScript modules in Node.js and browsers. Zero runtime dependencies, one isomorphic implementation, ESM and CommonJS support.">
+    <title>ws-share — one WebSocket, many modules</title>
+    <style>
+        /* Standalone documentation palette and document layout. */
+        :root {
+            --background: rgb(9, 18, 30);
+            --panel: rgb(16, 30, 48);
+            --ink: rgb(244, 247, 250);
+            --muted: rgb(179, 192, 207);
+            --line: rgb(50, 69, 91);
+            --accent: rgb(197, 243, 107);
+            color-scheme: dark;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-padding-top: 2rem;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            font: 17px/1.65 system-ui, sans-serif;
+            color: var(--ink);
+            background: var(--background);
+        }
+
+        a {
+            color: var(--accent);
+            text-underline-offset: .2em;
+        }
+
+        a:hover {
+            color: rgb(226, 255, 172);
+        }
+
+        a:focus-visible {
+            border-radius: 2px;
+            outline: 3px solid var(--accent);
+            outline-offset: 5px;
+        }
+
+        h1,
+        h2,
+        h3 {
+            line-height: 1.15;
+            letter-spacing: -.035em;
+            text-wrap: balance;
+        }
+
+        h1 {
+            margin: 1rem 0 1.25rem;
+            font-size: clamp(2.5rem, 5vw, 4.2rem);
+        }
+
+        h2 {
+            margin: 0 0 1.2rem;
+            font-size: clamp(1.85rem, 3vw, 2.5rem);
+        }
+
+        h3 {
+            margin: 1.8rem 0 .8rem;
+            font-size: 1.2rem;
+        }
+
+        p {
+            max-width: 76ch;
+            margin: .8rem 0 1.1rem;
+        }
+
+        .shell {
+            width: min(1120px, calc(100% - 3rem));
+            margin-inline: auto;
+        }
+
+        /* Navigation and introduction. */
+        .skip {
+            position: absolute;
+            top: -5rem;
+            left: 1rem;
+            z-index: 1;
+            padding: .7rem 1rem;
+            background: var(--panel);
+        }
+
+        .skip:focus {
+            top: 1rem;
+        }
+
+        header {
+            padding-block: 1.4rem;
+        }
+
+        nav {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 1rem 1.6rem;
+        }
+
+        nav a {
+            font-size: .92rem;
+            text-decoration: none;
+            color: var(--muted);
+        }
+
+        nav .brand {
+            margin-right: auto;
+            font-size: 1.12rem;
+            font-weight: 750;
+            letter-spacing: -.03em;
+            color: var(--ink);
+        }
+
+        .banner {
+            display: block;
+            width: 100%;
+            height: auto;
+            border: 1px solid var(--line);
+            border-radius: 20px;
+        }
+
+        .intro {
+            max-width: 810px;
+            padding-block: 3.5rem 2.5rem;
+        }
+
+        .eyebrow {
+            font: 700 .75rem/1.4 ui-monospace, monospace;
+            letter-spacing: .15em;
+            text-transform: uppercase;
+            color: var(--accent);
+        }
+
+        .lead {
+            font-size: 1.2rem;
+            color: var(--muted);
+        }
+
+        .links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: .85rem;
+            margin-top: 1.6rem;
+        }
+
+        .button {
+            display: inline-block;
+            padding: .62rem 1rem;
+            font-weight: 650;
+            text-decoration: none;
+            border: 1px solid var(--line);
+            border-radius: 8px;
+        }
+
+        .button.primary {
+            color: rgb(16, 29, 49);
+            background: var(--accent);
+            border-color: var(--accent);
+        }
+
+        .facts {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            padding-block: 0 3rem;
+        }
+
+        .facts p {
+            margin: .4rem 0;
+            font-size: .96rem;
+            color: var(--muted);
+        }
+
+        .facts strong {
+            display: block;
+            font-size: 1.1rem;
+            color: var(--ink);
+        }
+
+        /* Documentation sections and source examples. */
+        section {
+            padding-block: 3.5rem;
+            border-top: 1px solid var(--line);
+        }
+
+        section .eyebrow {
+            margin-bottom: 1rem;
+        }
+
+        .columns {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.6rem;
+        }
+
+        .columns h3 {
+            margin-top: 0;
+        }
+
+        code {
+            font: .88em/1.6 ui-monospace, SFMono-Regular, Consolas, monospace;
+            overflow-wrap: anywhere;
+            color: rgb(220, 244, 182);
+        }
+
+        pre {
+            overflow-x: auto;
+            margin: 1rem 0 1.4rem;
+            padding: 1.3rem;
+            background: var(--panel);
+            border: 1px solid var(--line);
+            border-radius: 10px;
+        }
+
+        pre code {
+            overflow-wrap: normal;
+            color: rgb(225, 233, 243);
+        }
+
+        .note {
+            padding: .4rem 0 .4rem 1.25rem;
+            color: var(--muted);
+            border-left: 3px solid var(--accent);
+        }
+
+        .table-scroll {
+            overflow-x: auto;
+            margin-block: 1.5rem;
+        }
+
+        table {
+            width: 100%;
+            text-align: left;
+            border-collapse: collapse;
+        }
+
+        th {
+            font-size: .8rem;
+            letter-spacing: .06em;
+            text-transform: uppercase;
+            color: var(--muted);
+        }
+
+        th,
+        td {
+            vertical-align: top;
+            padding: 1rem;
+            border-bottom: 1px solid var(--line);
+        }
+
+        th:first-child,
+        td:first-child {
+            padding-left: 0;
+        }
+
+        td {
+            min-width: 13rem;
+        }
+
+        li {
+            margin-block: .5rem;
+        }
+
+        footer {
+            padding-block: 2rem 3rem;
+            font-size: .9rem;
+            color: var(--muted);
+            border-top: 1px solid var(--line);
+        }
+
+        footer p {
+            margin: .3rem 0;
+        }
+
+        /* Narrow viewports and motion preferences. */
+        @media (max-width: 45rem) {
+            .shell {
+                width: min(1120px, calc(100% - 2rem));
+            }
+
+            nav {
+                gap: .7rem 1rem;
+            }
+
+            nav .brand {
+                flex-basis: 100%;
+            }
+
+            .banner {
+                border-radius: 12px;
+            }
+
+            .intro {
+                padding-top: 2rem;
+            }
+
+            .facts,
+            .columns {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .facts {
+                padding-bottom: 2rem;
+            }
+
+            section {
+                padding-block: 2.5rem;
+            }
+
+            pre {
+                padding: 1rem;
+                font-size: .9rem;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            html {
+                scroll-behavior: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <a class="skip" href="#main">Skip to documentation</a>
+    <header class="shell">
+        <nav aria-label="Main navigation">
+            <a class="brand" href="#">ws-share</a>
+            <a href="#start">Quick start</a>
+            <a href="#browser">Browser</a>
+            <a href="#api">API</a>
+            <a href="#upgrade">Upgrade</a>
+            <a href="https://github.com/RIAEvangelist/ws-share">GitHub ↗</a>
+        </nav>
+    </header>
+    <main id="main" class="shell">
+        <img class="banner" src="./ws-share-header.svg" width="1440" height="520" alt="ws-share: Airlock, Moon Cafe and Mission Control use one shared WebSocket.">
+        <div class="intro">
+            <div class="eyebrow">Version 3.0 / Node.js 22.13+ / browser</div>
+            <h1>Let your modules share the connection.</h1>
+            <p class="lead">Your airlock controls and moon cafe can use the same native WebSocket. Each module asks for the connection it needs, and ws-share reuses the matching socket.</p>
+            <div class="links">
+                <a class="button primary" href="#start">Start sharing</a>
+                <a class="button" href="https://www.npmjs.com/package/ws-share">View on npm ↗</a>
+                <a class="button" href="https://github.com/RIAEvangelist/ws-share/releases">Release notes ↗</a>
+            </div>
+        </div>
+        <div class="facts">
+            <div>
+                <strong>One connection</strong>
+                <p>Modules requesting the same URI and protocols receive the same socket.</p>
+            </div>
+            <div>
+                <strong>Familiar WebSocket API</strong>
+                <p>Keep <code>send</code>, <code>close</code> and native events, with convenient <code>on</code> and <code>off</code> aliases.</p>
+            </div>
+            <div>
+                <strong>Zero runtime dependencies</strong>
+                <p>One isomorphic source uses the platform's native WebSocket in Node.js, browsers and workers.</p>
+            </div>
+        </div>
+        <section id="start">
+            <div class="eyebrow">01 / Connect</div>
+            <h2>Two modules. One socket.</h2>
+            <pre><code>npm install ws-share</code></pre>
+            <p>Replace the example address with your application's WebSocket server.</p>
+            <pre><code>import WS from 'ws-share';
+
+const airlock = new WS('wss://moon.example/control');
+const cafe = new WS('wss://moon.example/control');
+
+console.log(airlock === cafe); // true
+
+function receiveOrder(event) {
+    console.log('Moon cafe:', event.data);
+}
+
+cafe.on('message', receiveOrder);
+
+function orderCoffee() {
+    airlock.send('One espresso. Low gravity. Extra lid.');
+}
+
+if (airlock.readyState === WebSocket.OPEN) {
+    orderCoffee();
+} else {
+    airlock.on(
+        'open',
+        orderCoffee,
+        {once: true}
+    );
+}</code></pre>
+            <p>A shared socket may already be open when a module asks for it. Check <code>readyState</code> before waiting for <code>open</code>.</p>
+            <h3>CommonJS</h3>
+            <pre><code>const WS = require('ws-share');</code></pre>
+            <p>Node.js 22.13 and newer load the same synchronous <code>WS.js</code> implementation through <code>import</code> and <code>require</code>. Both receive the same constructor and share the same connection pool.</p>
+        </section>
+        <section id="browser">
+            <div class="eyebrow">02 / Browser</div>
+            <h2>Load JavaScript directly.</h2>
+            <p>A native import map resolves the package name to the installed source. Serve your page over HTTP(S) and expose that file at the mapped URL.</p>
+            <pre><code>&lt;script type="importmap"&gt;
+{
+    "imports": {
+        "ws-share": "./node_modules/ws-share/WS.js"
+    }
+}
+&lt;/script&gt;
+&lt;script type="module"&gt;
+    import WS from 'ws-share';
+
+    const socket = new WS('wss://moon.example/control');
+
+    function receiveMessage(event) {
+        console.log(event.data);
+    }
+
+    socket.on('message', receiveMessage);
+&lt;/script&gt;</code></pre>
+            <p>Import-map URLs are relative to the HTML document. You can also import <code>WS.js</code> directly by URL or let a bundler resolve the ordinary <code>ws-share</code> package import. Browsers and workers need a native <code>globalThis.WebSocket</code>.</p>
+            <h3>Classic scripts</h3>
+            <pre><code>&lt;script src="./node_modules/ws-share/ws-share-vanilla.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+    const socket = new WS('wss://moon.example/control');
+&lt;/script&gt;</code></pre>
+            <p>The classic entry exposes <code>globalThis.WS</code> and is generated from the same canonical source. Choose one loading style for each application; classic scripts and ES modules have independent pools. The package uses native JavaScript without webpack or a separate Node bundle.</p>
+        </section>
+        <section id="api">
+            <div class="eyebrow">03 / Reference</div>
+            <h2>A small layer over WebSocket.</h2>
+            <p><code>new WS(uri, protocols?)</code> returns the shared native WebSocket itself. The second argument is a protocol string or an iterable of strings, such as an ordered array. A missing URI throws a <code>TypeError</code>; the native constructor handles URL and protocol errors.</p>
+            <div class="table-scroll">
+                <table>
+                    <caption class="eyebrow">Shared socket API</caption>
+                    <thead>
+                        <tr>
+                            <th scope="col">Member</th>
+                            <th scope="col">Behavior</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>uri</code></td>
+                            <td>Read-only URI supplied when this socket was created.</td>
+                        </tr>
+                        <tr>
+                            <td><code>protocols</code></td>
+                            <td>Read-only property containing the originally requested protocols. Native <code>protocol</code> reports the negotiated protocol.</td>
+                        </tr>
+                        <tr>
+                            <td><code>on(type, listener, options?)</code><br><code>addListener(type, listener, options?)</code></td>
+                            <td>Aliases for <code>addEventListener</code>. Listeners receive native event objects; messages expose <code>event.data</code>. Returns <code>undefined</code>.</td>
+                        </tr>
+                        <tr>
+                            <td><code>off(type, listener, options?)</code><br><code>removeListener(type, listener, options?)</code></td>
+                            <td>Aliases for <code>removeEventListener</code>. Pass the same listener reference to remove it. Returns <code>undefined</code>.</td>
+                        </tr>
+                        <tr>
+                            <td><code>send(data)</code>, <code>close(code?, reason?)</code></td>
+                            <td>Native WebSocket operations on the connection shared by every holder.</td>
+                        </tr>
+                        <tr>
+                            <td><code>readyState</code>, <code>bufferedAmount</code>, <code>binaryType</code>, <code>url</code>, <code>protocol</code>, <code>extensions</code></td>
+                            <td>Native WebSocket state and configuration.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <h3>Shared ownership</h3>
+            <p>Every module receives the same socket object. Calling <code>close()</code> closes the connection for all of them. Setting <code>binaryType</code> changes how all listeners receive binary messages. The application decides which owner closes a connection.</p>
+            <p>When a component goes away, remove its listener while other components keep using the socket:</p>
+            <pre><code>function showCafeMessage(event) {
+    console.log(event.data);
+}
+
+socket.on('message', showCafeMessage);
+
+// Run during this component's cleanup.
+socket.off('message', showCafeMessage);</code></pre>
+            <p>Use event listeners when modules need independent handlers. Assigning <code>socket.onmessage</code> replaces the socket's single property handler.</p>
+        </section>
+        <section id="sharing">
+            <div class="eyebrow">04 / Connection lifecycle</div>
+            <h2>Know what is shared.</h2>
+            <div class="columns">
+                <div>
+                    <h3>Connection identity</h3>
+                    <p>The exact URI string and ordered protocol list identify a connection. <code>'chat'</code> and <code>['chat']</code> match; an omitted or empty protocol argument identifies the empty list. Protocol order matters, and URI spelling is preserved.</p>
+                </div>
+                <div>
+                    <h3>Application scope</h3>
+                    <p>Sharing happens within the loaded implementation. Separate processes, browser tabs, workers, package copies and loading styles have their own pools.</p>
+                </div>
+            </div>
+            <h3>Reuse while connecting or open</h3>
+            <p>A matching request reuses a socket while it is <code>CONNECTING</code> or <code>OPEN</code>. A <code>CLOSING</code> or <code>CLOSED</code> socket is replaced on the next request. The old socket's later close event leaves its replacement intact.</p>
+            <p>Existing holders retain their original socket. Request another one when your application's reconnect policy calls for it.</p>
+            <p class="note">ws-share handles connection reuse. Your application owns its message format, reconnect policy and final connection cleanup.</p>
+        </section>
+        <section id="upgrade">
+            <div class="eyebrow">05 / Upgrade</div>
+            <h2>Upgrading from 2.x to 3.0.</h2>
+            <p>Version 3.0.0 replaces the Node <code>ws</code> dependency with the platform's native WebSocket. This makes the client implementation isomorphic and removes its runtime dependency tree. The standard WebSocket API now applies in every supported environment.</p>
+            <ul>
+                <li><strong>Runtime:</strong> use Node.js 22.13 or newer, or a browser or worker with native <code>WebSocket</code>.</li>
+                <li><strong>Messages:</strong> Node listeners now receive a <code>MessageEvent</code>; read <code>event.data</code>. Native close events expose <code>event.code</code> and <code>event.reason</code>.</li>
+                <li><strong>Binary data:</strong> native <code>binaryType</code> controls the message data. Set <code>socket.binaryType = 'arraybuffer'</code> when your handler needs an <code>ArrayBuffer</code>, and update code that expected a Node <code>Buffer</code>.</li>
+                <li><strong>Listeners:</strong> <code>on</code>, <code>off</code>, <code>addListener</code> and <code>removeListener</code> follow EventTarget semantics, including options such as <code>{ once: true }</code> and an <code>undefined</code> return value.</li>
+                <li><strong>Node extensions:</strong> <code>ws</code>-specific methods such as <code>ping</code>, <code>pong</code>, <code>terminate</code> and EventEmitter methods are outside the native WebSocket API. Use the standard client API when upgrading.</li>
+                <li><strong>Loading:</strong> existing <code>require('ws-share')</code> and classic browser <code>WS</code> usage remain available. ESM imports load the canonical source directly.</li>
+            </ul>
+            <h3>Less repeated work</h3>
+            <p>Connection reuse avoids opening another WebSocket for each module. Shared sockets retain their established listener aliases and metadata. Connection lookup distinguishes URI and protocol boundaries and replaces closing connections cleanly.</p>
+            <p>See the <a href="https://github.com/RIAEvangelist/ws-share/releases">release notes</a> for release history and verification evidence.</p>
+        </section>
+    </main>
+    <footer class="shell">
+        <p><strong>ws-share</strong> · By <a href="https://github.com/RIAEvangelist">Brandon Nozaki Miller</a></p>
+        <p><a href="https://github.com/RIAEvangelist/ws-share">Source</a> · <a href="https://www.npmjs.com/package/ws-share">npm</a> · <a href="https://github.com/RIAEvangelist/ws-share/issues">Issues</a> · <a href="https://github.com/RIAEvangelist/ws-share/blob/main/licence.md">DBAD license</a></p>
+    </footer>
+</body>
+</html>

@@ -1,62 +1,46 @@
-var webpack = require('webpack');
-var WebpackDevServer = require('webpack-dev-server');
-var config = require('./webpack.config');
-var example = process.argv[2];
+import {createServer} from 'node:http';
+import {readFile} from 'node:fs/promises';
 
-if(!example){
-    console.log('you must specify the example to start like : npm start myExample');
-    return;
-}
-var hotConfig={
-    uiPort:8080,
-    hotPort:3000,
-    host:'0.0.0.0',
-    acceptOnHost:'0.0.0.0',
-    path:'/js/'
-}
-
-config.output.path+=hotConfig.path.slice(1);
-config.output.publicPath=hotConfig.path;
-config.entry[0]+=example+hotConfig.path+'app.js';
-config.entry.unshift('webpack/hot/only-dev-server');
-config.entry.unshift('webpack-dev-server/client?http://'
-    +hotConfig.acceptOnHost+':'
-    +hotConfig.uiPort
+const routes = new Map(
+    [
+        ['/', ['docs/index.html', 'text/html; charset=utf-8']],
+        ['/ws-share-header.svg', ['docs/ws-share-header.svg', 'image/svg+xml']],
+        ['/WS.js', ['WS.js', 'text/javascript; charset=utf-8']],
+        ['/ws-share-vanilla.js', ['ws-share-vanilla.js', 'text/javascript; charset=utf-8']],
+        ['/examples/echo/', ['examples/echo/index.html', 'text/html; charset=utf-8']],
+        ['/examples/echo/js/app.js', ['examples/echo/js/app.js', 'text/javascript; charset=utf-8']]
+    ]
 );
-config.plugins.unshift(new webpack.HotModuleReplacementPlugin());
+const port = Number(process.env.PORT || 8080);
+const server = createServer(serve);
 
-for(var loader in config.module.loaders){
-    config.module.loaders[loader].loaders.unshift('react-hot');
-}
+server.on('error', reportError);
+server.listen(port, '127.0.0.1', listening);
 
-config.devServer.contentBase+=example;
-
-var server=new WebpackDevServer(
-    webpack(config),
-    {
-        publicPath: config.output.publicPath,
-        hot: true,
-        historyApiFallback: true
+async function serve(request, response) {
+    const route = routes.get(new URL(request.url, 'http://localhost').pathname);
+    if (!route) {
+        response.writeHead(404);
+        response.end('Not found');
+        return;
     }
-);
-
-server.use(
-    '/',
-    function(req, res) {
-        res.sendFile(
-            __dirname+'/examples/'+example+req.url
-        );
+    try {
+        const content = await readFile(new URL(route[0], import.meta.url));
+        response.writeHead(200, {'Content-Type': route[1]});
+        response.end(content);
+    } catch (error) {
+        console.error(error);
+        response.writeHead(500);
+        response.end('Could not read the requested file.');
     }
-);
+}
 
-server.listen(
-    hotConfig.uiPort,
-    hotConfig.host,
-    function (err, result) {
-        if (err) {
-            console.log(err);
-        }
+function listening() {
+    console.log(`Documentation: http://127.0.0.1:${server.address().port}/`);
+    console.log(`Echo example: http://127.0.0.1:${server.address().port}/examples/echo/`);
+}
 
-        console.log('Serving at : '+config.output.publicPath);
-    }
-);
+function reportError(error) {
+    console.error(error);
+    process.exitCode = 1;
+}
