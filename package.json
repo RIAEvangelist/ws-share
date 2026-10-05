@@ -1,7 +1,7 @@
 {
   "name": "ws-share",
-  "version": "3.0.0",
-  "description": "Share native WebSocket connections across Node.js modules and browser components with zero dependencies.",
+  "version": "3.1.0",
+  "description": "Share native WebSocket connections across Node.js modules and browser components, with optional lifecycle events.",
   "type": "module",
   "main": "./WS.js",
   "browser": "./WS.js",
@@ -12,7 +12,7 @@
     "licence.md"
   ],
   "scripts": {
-    "test": "node --test",
+    "test": "node test/ws-share.test.js",
     "build:browser": "node scripts/browser.js",
     "prepack": "npm run build:browser",
     "start": "node devServer.js"
@@ -54,5 +54,11 @@
   "bugs": {
     "url": "https://github.com/RIAEvangelist/ws-share/issues"
   },
-  "homepage": "https://riaevangelist.github.io/ws-share/"
+  "homepage": "https://riaevangelist.github.io/ws-share/",
+  "dependencies": {
+    "event-pubsub": "6.1.1"
+  },
+  "devDependencies": {
+    "vanilla-test": "2.1.3"
+  }
 }

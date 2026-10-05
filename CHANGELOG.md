@@ -1,5 +1,15 @@
 # Changelog
 
+## 3.1.0
+
+- Add `WS.observe()`, which lazily loads `event-pubsub` 6.1.1 and resolves one shared observer bus per loaded implementation. Ordinary construction, ESM, CommonJS, direct-URL imports, and the classic `WS` global retain synchronous socket behavior.
+- Add synchronous `WS.getConnections()` snapshots with each physical connection's increasing `id`, native `socket`, native `url`, copied requested `protocols`, and current `readyState`.
+- Emit global `created`, `open`, `error`, and `close` lifecycle events with those fields plus the original native `event` (`undefined` for `created`). Queue `created` after the constructor returns when observation was already enabled; subscriptions do not replay prior events.
+- Keep replaced closing connections observable until their native close event. Complete close cleanup before notifying observers, preserve the replacement, and retain no closed-connection history.
+- Preserve native listener aliases, shared close ownership, `binaryType`, and property handlers. Reusing a connection emits no extra creation or opening event.
+- Document wildcard and one-shot subscriptions, exact-handler cleanup, current-state snapshots, observer failure behavior, and browser dependency import maps.
+- Declare `event-pubsub` as a runtime dependency with its `strong-type` 2.0.0 dependency loaded only for observation; use `vanilla-test` 2.1.3 for development tests.
+
 ## 3.0.0
 
 - Use the native `WebSocket` in Node.js 22.13+ and modern browsers, with zero runtime or development dependencies.
